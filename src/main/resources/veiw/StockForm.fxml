@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXComboBox?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="754.0" prefWidth="1201.0" style="-fx-background-color: #FFFFFF;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.controller.StockFormController">
+   <children>
+      <Label layoutX="42.0" layoutY="24.0" prefHeight="22.0" prefWidth="390.0" text="Stock Manage">
+         <font>
+            <Font name="System Bold Italic" size="17.0" />
+         </font>
+      </Label>
+      <Pane layoutX="25.0" layoutY="212.0" prefHeight="493.0" prefWidth="335.0" style="-fx-background-radius: 20; -fx-border-radius: 20; -fx-border-color: #FF5B22; -fx-background-color: #FEFBF3;">
+         <children>
+            <ImageView fitHeight="303.0" fitWidth="251.0" layoutX="54.0" layoutY="202.0" opacity="0.33" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../assets/track.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="16.0" fitWidth="26.0" layoutX="67.0" layoutY="597.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../assets/plus.png" />
+               </image>
+            </ImageView>
+            <Label layoutX="20.0" layoutY="14.0" prefHeight="31.0" prefWidth="224.0" text="Item Setup" textFill="#eb620d">
+               <font>
+                  <Font name="System Italic" size="17.0" />
+               </font>
+            </Label>
+            <JFXTextField fx:id="txtId" layoutX="28.0" layoutY="140.0" onAction="#txtIdOnAction" onKeyReleased="#txtIdOnKeyReleased" prefHeight="29.0" prefWidth="251.0" promptText="id" />
+            <JFXComboBox fx:id="cmbType" layoutX="28.0" layoutY="70.0" prefHeight="31.0" prefWidth="238.0" promptText="Type" />
+            <JFXTextField fx:id="txtName" layoutX="28.0" layoutY="211.0" onAction="#txtNameOnAction" onKeyReleased="#txtNameOnKeyReleased" prefHeight="29.0" prefWidth="259.0" promptText="name" />
+            <JFXTextField fx:id="txtQty" layoutX="28.0" layoutY="286.0" onAction="#txtQtyOnAction" onKeyReleased="#txtQtyOnKeyReleased" prefHeight="29.0" prefWidth="259.0" promptText="qty" />
+            <JFXTextField fx:id="txtUnitPrice" layoutX="24.0" layoutY="358.0" onKeyReleased="#txtPriceOnKeyReleased" prefHeight="29.0" prefWidth="267.0" promptText="UnitPrice" />
+            <JFXButton buttonType="RAISED" layoutX="198.0" layoutY="439.0" onAction="#btnUpdateOnAction" prefHeight="29.0" prefWidth="96.0" style="-fx-background-color: #FF5B22;" text="Update" />
+            <JFXButton buttonType="RAISED" layoutX="35.0" layoutY="438.0" onAction="#btnSaveOnAction" prefHeight="29.0" prefWidth="96.0" style="-fx-background-color: #FF5B22;" text="         Add" />
+         </children>
+      </Pane>
+      <JFXButton layoutX="204.0" layoutY="81.0" onAction="#btnVeiwMachineOnAction" prefHeight="42.0" prefWidth="139.0" style="-fx-background-color: #FF5B22; -fx-background-radius: 20;" text="VeiwMachine" />
+      <JFXButton layoutX="198.0" layoutY="148.0" onAction="#btnGRNOnAction" prefHeight="42.0" prefWidth="152.0" style="-fx-background-color: #FF5B22; -fx-background-radius: 20;" text="Machine GRN" />
+      <JFXButton layoutX="25.0" layoutY="81.0" onAction="#btnVeiwStockOnAction" prefHeight="42.0" prefWidth="139.0" style="-fx-background-color: #FF5B22; -fx-background-radius: 20;" text="veiw Stock" />
+      <JFXButton layoutX="25.0" layoutY="148.0" onAction="#btnGRNStockOnAction" prefHeight="42.0" prefWidth="139.0" style="-fx-background-color: #FF5B22; -fx-background-radius: 20;" text="Stock GRN" />
+      <Pane fx:id="Pane" layoutX="387.0" layoutY="15.0" prefHeight="701.0" prefWidth="798.0" />
+   </children>
+</AnchorPane>

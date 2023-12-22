@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="740.0" prefWidth="798.0" style="-fx-background-color: #B0A695; -fx-background-radius: 20;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.controller.MachineVeiwFormController">
+    <children>
+        <Label layoutX="37.0" layoutY="14.0" prefHeight="34.0" prefWidth="344.0" text="Machine Details">
+            <font>
+                <Font name="System Bold Italic" size="17.0" />
+            </font>
+        </Label>
+        <TableView fx:id="tblMachine" layoutX="11.0" layoutY="317.0" prefHeight="405.0" prefWidth="770.0" style="-fx-background-radius: 20; -fx-background-color: #FFFFFF;" stylesheets="@../style/customer_form_style.css">
+            <columns>
+                <TableColumn fx:id="colId" prefWidth="113.0" text="id" />
+                <TableColumn fx:id="colName" prefWidth="160.0" text="name" />
+                <TableColumn fx:id="colQty" prefWidth="162.0" text="qty" />
+                <TableColumn fx:id="colPrice" prefWidth="188.0" text="price" />
+            <TableColumn fx:id="colAction" minWidth="2.0" prefWidth="128.0" text="Action" />
+            </columns>
+        </TableView>
+      <Pane layoutX="10.0" layoutY="53.0" prefHeight="248.0" prefWidth="778.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 20;">
+         <children>
+            <ImageView fitHeight="221.0" fitWidth="255.0" layoutX="14.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../assets/Untitled%20design(6).png" />
+               </image>
+            </ImageView>
+            <Label layoutX="289.0" layoutY="7.0" prefHeight="79.0" prefWidth="449.0" text="Currently Available Machine Count">
+               <font>
+                  <Font name="Britannic Bold" size="27.0" />
+               </font>
+            </Label>
+            <Label fx:id="lblMachine" layoutX="401.0" layoutY="76.0" prefHeight="129.0" prefWidth="146.0" textFill="#e86d0f">
+               <font>
+                  <Font size="75.0" />
+               </font></Label>
+         </children>
+      </Pane>
+    </children>
+</AnchorPane>

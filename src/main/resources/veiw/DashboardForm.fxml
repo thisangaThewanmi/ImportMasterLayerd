@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane opacity="0.95" prefHeight="784.0" prefWidth="1308.0" style="-fx-background-color: #FFFFFF;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.controller.DashBoardController">
+   <children>
+      <Pane layoutX="14.0" layoutY="16.0" opacity="0.92" prefHeight="753.0" prefWidth="269.0" style="-fx-background-color: #363332; -fx-background-radius: 15;">
+         <children>
+            <JFXButton layoutX="4.0" layoutY="241.0" onAction="#CustomerBtnOnAction" prefHeight="53.0" prefWidth="269.0" text="Customers" textFill="#f2efef">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </JFXButton>
+            <JFXButton layoutX="3.0" layoutY="191.0" onAction="#btnDashboardOnAction" prefHeight="53.0" prefWidth="269.0" text="Dashboard" textFill="#f2eaea">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </JFXButton>
+            <JFXButton layoutY="293.0" onAction="#btnSupplierOnAction" prefHeight="53.0" prefWidth="269.0" text="Supplier" textFill="#fcf8f8">
+               <font>
+                  <Font size="17.0" />
+               </font></JFXButton>
+            <JFXButton layoutY="357.0" onAction="#btnStockOnAction" prefHeight="40.0" prefWidth="269.0" text="Stock" textFill="#fcf8f8">
+               <font>
+                  <Font size="16.0" />
+               </font></JFXButton>
+            <JFXButton layoutX="3.0" layoutY="406.0" onAction="#btnEmployeeOnAction" prefHeight="53.0" prefWidth="269.0" text="Employee" textFill="#fcf8f8">
+               <font>
+                  <Font size="16.0" />
+               </font></JFXButton>
+            <JFXButton layoutX="4.0" layoutY="466.0" onAction="#btnJobOnAction" prefHeight="37.0" prefWidth="269.0" text="             Job Management" textFill="#f2ecec">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </JFXButton>
+            <JFXButton layoutX="8.0" layoutY="517.0" onAction="#btnReportOnAction" prefHeight="40.0" prefWidth="262.0" text="Reports" textFill="#fcf6f6">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </JFXButton>
+            <ImageView fitHeight="60.0" fitWidth="53.0" layoutX="108.0" layoutY="36.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../assets/user(1).png" />
+               </image>
+            </ImageView>
+            <Label layoutX="75.0" layoutY="98.0" prefHeight="31.0" prefWidth="125.0" text="      Admin" textFill="#eb5f09">
+               <font>
+                  <Font size="19.0" />
+               </font>
+            </Label>
+            <Line endX="111.0" layoutX="131.0" layoutY="138.0" startX="-107.0" />
+            <ImageView fitHeight="17.0" fitWidth="17.0" layoutX="56.0" layoutY="209.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../assets/home.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="17.0" fitWidth="23.0" layoutX="56.0" layoutY="256.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../assets/customer123.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="23.0" fitWidth="31.0" layoutX="53.0" layoutY="308.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../assets/courier.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="31.0" fitWidth="23.0" layoutX="57.0" layoutY="361.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../assets/inventory(1).png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="23.0" fitWidth="23.0" layoutX="57.0" layoutY="421.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../assets/owner.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="31.0" fitWidth="23.0" layoutX="60.0" layoutY="470.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../assets/job.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="23.0" fitWidth="23.0" layoutX="62.0" layoutY="526.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../assets/file.png" />
+               </image>
+            </ImageView>
+         </children></Pane>
+      <Pane fx:id="root" layoutX="293.0" layoutY="16.0" opacity="0.79" prefHeight="753.0" prefWidth="1216.0" style="-fx-background-color: #FFFAF4; -fx-background-radius: 20;">
+         <children>
+            <Label layoutX="15.0" layoutY="65.0" prefHeight="40.0" prefWidth="252.0" text="Today Update">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <JFXButton buttonType="RAISED" layoutX="1099.0" layoutY="22.0" prefHeight="31.0" prefWidth="92.0" text="Log Out" textFill="#141313">
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font>
+            </JFXButton>
+            <ImageView fitHeight="31.0" fitWidth="36.0" layoutX="1068.0" layoutY="22.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../assets/power.png" />
+               </image>
+            </ImageView>
+            <Label fx:id="lblSuppliers" layoutX="921.0" layoutY="203.0" prefHeight="113.0" prefWidth="125.0" textFill="#eb4509">
+
+               <font>
+                  <Font size="78.0" />
+               </font>
+            </Label>
+            <Label layoutX="765.0" layoutY="138.0" prefHeight="73.0" prefWidth="334.0" text="Available Suppliers">
+               <font>
+                  <Font size="31.0" />
+               </font>
+            </Label>
+            <Label layoutX="829.0" layoutY="456.0" prefHeight="53.0" prefWidth="185.0" text="Total Orders">
+               <font>
+                  <Font size="28.0" />
+               </font></Label>
+            <Label fx:id="lblOrders" layoutX="978.0" layoutY="517.0" prefHeight="113.0" prefWidth="114.0" textFill="#eb4509">
+               <font>
+                  <Font size="74.0" />
+               </font></Label>
+            <ImageView fitHeight="113.0" fitWidth="150.0" layoutX="758.0" layoutY="211.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../assets/11065.jpg" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="708.0" layoutY="517.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="690.0" layoutY="517.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="758.0" layoutY="509.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="729.0" layoutY="517.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../assets/Business%20people%20writing%20agreement,%20shaking%20hands.jpg" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="80.0" fitWidth="86.0" layoutX="46.0" layoutY="203.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../assets/customer.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="66.0" layoutY="517.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../assets/Untitled%20design(6).png" />
+               </image>
+            </ImageView>
+            <Label fx:id="lblMachine" layoutX="237.0" layoutY="536.0" prefHeight="100.0" prefWidth="114.0" textFill="#eb4509">
+               <font>
+                  <Font size="74.0" />
+               </font></Label>
+            <Label fx:id="lblCustomer" layoutX="154.0" layoutY="198.0" prefHeight="108.0" prefWidth="125.0" textFill="#eb4509">
+               <font>
+                  <Font size="74.0" />
+               </font></Label>
+            <Label layoutX="29.0" layoutY="145.0" prefHeight="53.0" prefWidth="308.0" text="Available Customers">
+               <font>
+                  <Font size="27.0" />
+               </font>
+            </Label>
+            <Label layoutX="39.0" layoutY="456.0" prefHeight="37.0" prefWidth="262.0" text="Available Machines">
+               <font>
+                  <Font size="27.0" />
+               </font>
+            </Label>
+         </children></Pane>
+   </children>
+</AnchorPane>

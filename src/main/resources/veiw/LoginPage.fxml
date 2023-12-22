@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="710.0" prefWidth="1197.0" style="-fx-background-radius: 20; -fx-background-color: #FAEED1;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.controller.LoginPageController">
+   <children>
+      <ImageView fitHeight="756.0" fitWidth="778.0" layoutX="-1.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../assets/8-rrTNJ9f9FaWMp4f.png" />
+         </image>
+      </ImageView>
+      <Label layoutX="928.0" layoutY="267.0" prefHeight="44.0" prefWidth="126.0" text="LOGIN">
+         <font>
+            <Font name="Cambria Bold Italic" size="40.0" />
+         </font>
+      </Label>
+      <TextField fx:id="txtUserName" layoutX="863.0" layoutY="373.0" prefHeight="31.0" prefWidth="256.0" promptText="userName" style="-fx-background-radius: 15;" />
+      <TextField fx:id="txtPassword" layoutX="859.0" layoutY="476.0" prefHeight="31.0" prefWidth="264.0" promptText="password" style="-fx-background-radius: 15;" />
+      <JFXButton fx:id="btnLogin" layoutX="935.0" layoutY="567.0" onAction="#btnLoginOnAction" prefHeight="31.0" prefWidth="119.0" style="-fx-background-radius: 10; -fx-background-color: #FF9B50;" text="Login" />
+      <Pane layoutX="817.0" layoutY="686.0" prefHeight="0.0" prefWidth="152.0" />
+      <ImageView fitHeight="56.0" fitWidth="94.0" layoutX="954.0" layoutY="196.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../assets/human.png" />
+         </image>
+      </ImageView>
+      <Label layoutX="854.0" layoutY="90.0" prefHeight="56.0" prefWidth="231.0" text="Import Master" textFill="#f56b1b">
+         <font>
+            <Font name="Calisto MT Bold Italic" size="40.0" />
+         </font>
+      </Label>
+      <Label layoutX="900.0" layoutY="34.0" prefHeight="56.0" prefWidth="139.0" text="Welcome to" textFill="#111010">
+         <font>
+            <Font name="Calisto MT" size="25.0" />
+         </font>
+      </Label>
+      <ImageView fitHeight="19.0" fitWidth="19.0" layoutX="822.0" layoutY="378.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../assets/userName.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="19.0" fitWidth="31.0" layoutX="826.0" layoutY="482.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../assets/padlock.png" />
+         </image>
+      </ImageView>
+   </children>
+</AnchorPane>

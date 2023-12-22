@@ -1,0 +1,52 @@
+.delete-button{
+    -fx-background-color: #fa5252;
+    -fx-text-fill: white;
+    -fx-border-radius: 7px;
+    -fx-background-radius: 7px;
+}
+.delete-button:hover{
+    -fx-background-color: #f32323;
+}
+.delete-button:pressed{
+    -fx-background-color:white ;
+    -fx-text-fill: #f32323;
+}
+.table-view {
+    -fx-background-color: transparent;
+}
+
+.table-view .column-header-background .filler {
+    -fx-background-color: transparent;
+}
+.table-view .column-header-background{
+    -fx-background-color: linear-gradient(to bottom, rgba(7, 1, 1, 0.54), rgba(204, 70, 25, 0.75));
+    -fx-background-radius: 7px 7px 0px 0px;
+    -fx-background-insets: 0 11px 0 0;
+    -fx-padding: 0 0 5px 0;
+}
+
+.table-view .column-header {
+    -fx-background-color: transparent;
+}
+
+.table-view .table-cell{
+    -fx-border-color: transparent;
+    -fx-padding: 2 0 2 10px;
+}
+.table-row-cell:hover {
+    -fx-background-color: #93f9b911;
+    -fx-text-background-color: red;
+}
+.table-row-cell:odd{
+    -fx-background-color: rgba(45, 44, 44, 0.16);
+    -fx-background-insets: 0, 0 0 1 0;
+    -fx-padding: 0.0em;
+}
+.table-row-cell:even{
+    -fx-background-color: rgba(192, 77, 42, 0.18);
+    -fx-background-insets: 0, 0 0 1 0;
+    -fx-padding: 0.0em;
+}
+
+
+
