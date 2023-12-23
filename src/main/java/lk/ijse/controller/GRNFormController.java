@@ -28,6 +28,7 @@ import java.util.Optional;
 
 import static java.lang.Double.parseDouble;
 import static java.lang.Double.valueOf;
+import static lk.ijse.model.GRNModel.generateNextGRId;
 
 public class GRNFormController {
     public JFXComboBox cmbProduct;
@@ -63,7 +64,7 @@ public class GRNFormController {
 
 
     public void initialize() throws SQLException, ClassNotFoundException {
-        generateNextGRNId();
+        generateNextGRId();
         loadAllSuppliers();
         loadAllProducts();
         setCellValues();
@@ -99,10 +100,10 @@ public class GRNFormController {
 
     }
 
-    private void generateNextGRNId() {
+    private void generateNextGRId() {
         try {
-            String orderId = GRNModel.generateNextOrderId();
-            txtId.setText(orderId);
+            String grnId = GRNModel.generateNextGRId();
+            txtId.setText(grnId);
         } catch (SQLException e) {
             new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
         }
@@ -296,7 +297,7 @@ public class GRNFormController {
         try {
             boolean isSuccess = PlaceGRNModel.placeGrnOrder(placeGRNdto);
             if (isSuccess) {
-                new Alert(Alert.AlertType.CONFIRMATION, "Order Success!").show();
+                new Alert(Alert.AlertType.CONFIRMATION, "Good Recieve Note Success!").show();
             }
         } catch (SQLException e) {
             new Alert(Alert.AlertType.ERROR, e.getMessage()).show();

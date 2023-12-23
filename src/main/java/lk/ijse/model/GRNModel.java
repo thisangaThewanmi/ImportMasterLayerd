@@ -47,36 +47,39 @@ public class GRNModel {
     }
 
 
-    public static String generateNextOrderId() throws SQLException {
+    public static String generateNextGRId() throws SQLException {
+
         Connection connection = DbConnection.getInstance().getConnection();
 
-        String sql = "SELECT grn_id FROM grn ORDER BY grn_id DESC LIMIT 1";
-        try (PreparedStatement pstm = connection.prepareStatement(sql);
-             ResultSet resultSet = pstm.executeQuery()) {
+        String sql = "SELECT grn_id FROM  grn ORDER BY grn_id DESC LIMIT 1";
+        PreparedStatement pstm = connection.prepareStatement(sql);
 
-            if (resultSet.next()) {
-                return splitOrderId(resultSet.getString(1));
-            }
-            return splitOrderId(null);
+        ResultSet resultSet = pstm.executeQuery();
+        if(resultSet.next()) {
+            return splitOrderId(resultSet.getString(1));
         }
+        return splitOrderId(null);
     }
 
     private static String splitOrderId(String currentOrderId) {
-        if (currentOrderId != null && currentOrderId.startsWith("GRN0")) {
-            String[] split = currentOrderId.split("GRN0");
+        if (currentOrderId != null) {
+            String[] split = currentOrderId.split("GR");
 
-            if (split.length == 2) {
-                try {
-                    int id = Integer.parseInt(split[1]);
-                    id++;
-                    return "GRN00" + id;
-                } catch (NumberFormatException e) {
-                    // Handle the case where the numeric part cannot be parsed
-                    return "O001";
-                }
+            // Ensure that the array has at least two elements
+            int id;
+            if (split.length > 1) {
+                id = Integer.parseInt(split[1]); //01
+            } else {
+
+                id = 0;
             }
+
+            id++;
+            return "GR00" + id;
+        } else {
+            // Handle the case when currentOrderId is null
+            return "GR001";
         }
-        return "O001";
     }
 
 }

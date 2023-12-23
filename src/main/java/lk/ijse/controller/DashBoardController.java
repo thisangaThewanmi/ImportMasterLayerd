@@ -153,10 +153,10 @@ public class DashBoardController {
 
     }
 
-    public void btnReportOnAction(ActionEvent actionEvent) throws IOException {
+   /* public void btnReportOnAction(ActionEvent actionEvent) throws IOException {
         Parent node = FXMLLoader.load(this.getClass().getResource("/veiw/ReportForm.fxml"));
 
         this.root.getChildren().clear();
         this.root.getChildren().add(node);
-    }
+    }*/
 }

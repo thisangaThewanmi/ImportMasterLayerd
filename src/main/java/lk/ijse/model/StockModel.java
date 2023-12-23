@@ -103,7 +103,7 @@ public class StockModel {
     public static boolean updateStock(StockDto stockDto) throws SQLException {
         Connection connection = DbConnection.getInstance().getConnection();
 
-        String sql = "UPDATE item SET description = ?, unit_price = ?, qty_on_hand = ? WHERE code = ?";
+        String sql = "UPDATE stock SET description = ?, unit_price = ?, qty_on_hand = ? WHERE s_id = ?";
         PreparedStatement pstm = connection.prepareStatement(sql);
 
         pstm.setString(1, stockDto.getName());

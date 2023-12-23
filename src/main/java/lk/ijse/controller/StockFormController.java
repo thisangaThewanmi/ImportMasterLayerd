@@ -34,11 +34,10 @@ public class StockFormController {
     public javafx.scene.layout.Pane Pane;
 
 
-    private void initialize() {
+    public void initialize() {
         String [] types = {"Stock", "Machine"};
         cmbType.setItems(FXCollections.observableArrayList(types));
     }
-
 
     public void btnSaveOnAction(ActionEvent actionEvent) {
 
@@ -117,7 +116,7 @@ public class StockFormController {
                 new Alert(Alert.AlertType.CONFIRMATION,"stock sucessfully updated").showAndWait();
             }
         } catch (SQLException e) {
-            new Alert(Alert.AlertType.ERROR,"Error occued").showAndWait();
+            new Alert(Alert.AlertType.ERROR,e.getMessage()).showAndWait();
         }
     }
 
