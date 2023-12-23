@@ -18,7 +18,7 @@
             <children>
             <ImageView fitHeight="665.0" fitWidth="706.0" layoutX="84.0" opacity="0.25" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../assets/Untitled%20design(6).png" />
+
                </image>
             </ImageView>
                 <TableView fx:id="tblMachineGRN" layoutX="12.0" layoutY="370.0" prefHeight="205.0" prefWidth="740.0">

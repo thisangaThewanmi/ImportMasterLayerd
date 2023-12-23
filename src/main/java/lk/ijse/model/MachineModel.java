@@ -98,11 +98,11 @@ public class MachineModel {
     }
 
 
-    public static String generateNextMGRNId() throws SQLException {
+    public static String generateNextMRId() throws SQLException {
 
             Connection connection = DbConnection.getInstance().getConnection();
 
-            String sql = "SELECT mrn_id FROM MRN ORDER BY mrn_id DESC LIMIT 1";
+            String sql = "SELECT mrn_id FROM  mrn ORDER BY mrn_id DESC LIMIT 1";
             PreparedStatement pstm = connection.prepareStatement(sql);
 
             ResultSet resultSet = pstm.executeQuery();
@@ -113,18 +113,28 @@ public class MachineModel {
         }
 
         private static String splitOrderId(String currentOrderId) {
-            if(currentOrderId != null) {
-                String[] split = currentOrderId.split("MR0");
+            if (currentOrderId != null) {
+                String[] split = currentOrderId.split("MR");
 
-                int id = Integer.parseInt(split[2]); //01
+                // Ensure that the array has at least two elements
+                int id;
+                if (split.length > 1) {
+                    id = Integer.parseInt(split[1]); //01
+                } else {
+
+                    id = 0;
+                }
+
                 id++;
                 return "MR00" + id;
             } else {
+                // Handle the case when currentOrderId is null
                 return "MR001";
             }
         }
 
-    public static boolean updateQty2(List<MrnTM> list) throws SQLException {
+
+        public static boolean updateQty2(List<MrnTM> list) throws SQLException {
         for (MrnTM ob : list) {
             if (!updateQty2(ob)){
                 return false;
@@ -135,7 +145,7 @@ public class MachineModel {
 
     private static boolean updateQty2(MrnTM ob) throws SQLException {
         Connection connection = DbConnection.getInstance().getConnection();
-        String sql = "UPDATE machiene SET qty = qty + ? WHERE m_id = ?";
+        String sql = "UPDATE machine SET qty_ = qty_ + ? WHERE m_id = ?";
         PreparedStatement pstm = connection.prepareStatement(sql);
         pstm.setInt(1, ob.getQty());
         pstm.setString(2, ob.getMachineId());

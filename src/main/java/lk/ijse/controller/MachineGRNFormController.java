@@ -30,6 +30,7 @@ import java.util.List;
 import java.util.Optional;
 
 import static java.lang.Double.parseDouble;
+import static lk.ijse.model.MachineModel.generateNextMRId;
 
 public class MachineGRNFormController {
     public TableView tblMachineGRN;
@@ -60,7 +61,7 @@ public class MachineGRNFormController {
     private ObservableList<MrnTM> oblist = FXCollections.observableArrayList();
 
     public void initialize() throws SQLException, ClassNotFoundException {
-        generateNextMGRNId();
+        generateNextMRId();
         loadAllSuppliers();
         loadAllMachines();
         setCellValues();
@@ -68,10 +69,10 @@ public class MachineGRNFormController {
 
     }
 
-    private void generateNextMGRNId() {
+    private void generateNextMRId() {
         try {
-            String orderId = MachineModel.generateNextMGRNId();
-            txtId.setText(orderId);
+            String mrnId = machineModel.generateNextMRId();
+            txtId.setText(mrnId);
         } catch (SQLException e) {
             new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
         }
@@ -253,7 +254,7 @@ public class MachineGRNFormController {
         var placeMrnDto = new PlaceMrnDto(mrnId, date, supplierId, supplierName, total, machineTmList);
         boolean isSuccess = PlaceMRNModel.placeMRNOrder(placeMrnDto);
         if (isSuccess) {
-            new Alert(Alert.AlertType.CONFIRMATION, "Order Success!").show();
+            new Alert(Alert.AlertType.CONFIRMATION, "Machine Recieve Success!").show();
         }
 
 

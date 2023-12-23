@@ -15,7 +15,7 @@ public class MrnModel {
 
             Connection connection = DbConnection.getInstance().getConnection();
 
-            String sql = "INSERT INTO mrn VALUES(?, ?, ?,?,?)";
+            String sql = "INSERT INTO mrn VALUES(?, ?, ?,?)";
             PreparedStatement pstm = connection.prepareStatement(sql);
             pstm.setString(1, mrnId);
             pstm.setDate(2, Date.valueOf(date.toString()));
