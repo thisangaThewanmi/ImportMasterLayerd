@@ -1,7 +1,6 @@
-package lk.ijse.model;
+package lk.ijse.dao;
 
 import lk.ijse.db.DbConnection;
-import lk.ijse.dto.tm.GrnTM;
 import lk.ijse.dto.tm.MrnTM;
 
 import java.sql.Connection;

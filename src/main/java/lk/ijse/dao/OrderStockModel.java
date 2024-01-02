@@ -1,13 +1,4 @@
-package lk.ijse.model;
-
-import lk.ijse.db.DbConnection;
-import lk.ijse.dto.EngineerDTO;
-import lk.ijse.dto.OrderStockDto;
-
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+package lk.ijse.dao;
 
 public class OrderStockModel {
   /*  public static OrderStockDto searchOrderStock(String id) throws SQLException {

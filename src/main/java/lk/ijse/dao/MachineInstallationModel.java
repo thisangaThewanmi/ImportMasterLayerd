@@ -1,7 +1,6 @@
-package lk.ijse.model;
+package lk.ijse.dao;
 
 import lk.ijse.db.DbConnection;
-import lk.ijse.dto.MachineInstallDto;
 
 import java.sql.*;
 import java.time.LocalDate;

@@ -1,6 +1,5 @@
 package lk.ijse.controller;
 
-import com.ctc.wstx.shaded.msv_core.grammar.BinaryExp;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
 import javafx.collections.FXCollections;
@@ -8,16 +7,11 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.control.Alert;
-import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
-import lk.ijse.dto.CustomerDto;
 import lk.ijse.dto.MachineDto;
 import lk.ijse.dto.StockDto;
-import lk.ijse.model.CusModel;
-import lk.ijse.model.MachineModel;
-import lk.ijse.model.StockModel;
+import lk.ijse.dao.MachineModel;
+import lk.ijse.dao.StockModel;
 import lk.ijse.util.Regex;
 import lk.ijse.util.TextFields;
 

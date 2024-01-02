@@ -7,11 +7,9 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import lk.ijse.dto.CustomerDto;
 import lk.ijse.dto.EmployeeDto;
-import lk.ijse.dto.tm.CustomerTM;
 import lk.ijse.dto.tm.EmployeeTM;
-import lk.ijse.model.EmpModel;
+import lk.ijse.dao.EmpModel;
 
 import java.sql.SQLException;
 import java.util.ArrayList;

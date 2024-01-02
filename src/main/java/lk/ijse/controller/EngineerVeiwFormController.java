@@ -9,7 +9,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import lk.ijse.dto.EngineerDTO;
 import lk.ijse.dto.tm.EnginnerTM;
-import lk.ijse.model.EngineerModel;
+import lk.ijse.dao.EngineerModel;
 
 import java.sql.SQLException;
 import java.util.ArrayList;

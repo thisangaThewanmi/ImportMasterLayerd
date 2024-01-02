@@ -7,16 +7,13 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.control.Alert;
-import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import lk.ijse.dto.CustomerDto;
 import lk.ijse.dto.EmployeeDto;
 import lk.ijse.dto.EngineerDTO;
-import lk.ijse.model.CusModel;
-import lk.ijse.model.EmpModel;
-import lk.ijse.model.EngineerModel;
+import lk.ijse.dao.EmpModel;
+import lk.ijse.dao.EngineerModel;
 import lk.ijse.util.Regex;
 import lk.ijse.util.TextFields;
 

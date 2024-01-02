@@ -1,8 +1,5 @@
 package lk.ijse.controller;
 
-import javafx.animation.Animation;
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -11,16 +8,10 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-import javafx.util.Duration;
-import lk.ijse.model.*;
+import lk.ijse.dao.*;
 
 import java.io.IOException;
-import java.security.cert.PolicyNode;
 import java.sql.SQLException;
-import java.text.SimpleDateFormat;
-import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
-import java.util.Date;
 
 public class DashBoardController {
 
@@ -38,7 +29,7 @@ public class DashBoardController {
 
     private supModel supplierModel = new supModel();
 
-    private CusModel customerModel = new CusModel();
+    private CustomerDaoImpl customerModel = new CustomerDaoImpl();
 
     private MachineModel machineModel = new MachineModel();
 
@@ -152,6 +143,10 @@ public class DashBoardController {
         this.root.getChildren().add(node);
 
     }
+
+    public void btnReportOnAction(ActionEvent actionEvent) {
+    }
+
 
    /* public void btnReportOnAction(ActionEvent actionEvent) throws IOException {
         Parent node = FXMLLoader.load(this.getClass().getResource("/veiw/ReportForm.fxml"));

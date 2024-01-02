@@ -5,15 +5,10 @@ import com.jfoenix.controls.JFXTextField;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
-import lk.ijse.db.DbConnection;
 import lk.ijse.dto.*;
-import lk.ijse.model.*;
+import lk.ijse.dao.*;
 
-import java.sql.Connection;
-import java.sql.Date;
-import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.List;
@@ -33,7 +28,7 @@ public class NewMachineInstallationController {
     public JFXComboBox cmbEngineer;
     public JFXTextField txtPrice;
 
-    private CusModel customerModel = new CusModel();
+    private CustomerDaoImpl customerModel = new CustomerDaoImpl();
 
     private MachineModel machineModel = new MachineModel();
 
@@ -85,7 +80,7 @@ public class NewMachineInstallationController {
         String id = (String) cmbCustomer.getValue();
 //        CustomerModel customerModel = new CustomerModel();
         try {
-            CustomerDto customerDto = CusModel.searchCustomer(id);
+            CustomerDto customerDto = CustomerDaoImpl.searchCustomer(id);
             lblCustomerName.setText(customerDto.getName());
 
         } catch (SQLException e) {

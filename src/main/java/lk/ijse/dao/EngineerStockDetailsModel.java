@@ -1,8 +1,7 @@
-package lk.ijse.model;
+package lk.ijse.dao;
 
 import lk.ijse.db.DbConnection;
 import lk.ijse.dto.EngineerStockDetailsDto;
-import lk.ijse.dto.StockDto;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

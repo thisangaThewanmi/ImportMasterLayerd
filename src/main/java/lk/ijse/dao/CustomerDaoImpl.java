@@ -1,9 +1,7 @@
-package lk.ijse.model;
+package lk.ijse.dao;
 
-import javafx.scene.control.Alert;
 import lk.ijse.db.DbConnection;
 import lk.ijse.dto.CustomerDto;
-import lk.ijse.dto.EmployeeDto;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -12,7 +10,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CusModel {
+public class CustomerDaoImpl implements CustomerDao {
     public static boolean saveCustomer(CustomerDto dto) throws SQLException {
 
         Connection connection = DbConnection.getInstance().getConnection();

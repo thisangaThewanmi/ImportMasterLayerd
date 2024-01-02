@@ -10,16 +10,12 @@ import javafx.scene.Cursor;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
-import javafx.util.StringConverter;
 import lk.ijse.dto.*;
-import lk.ijse.dto.tm.CartTM;
 import lk.ijse.dto.tm.GrnTM;
-import lk.ijse.dto.tm.StockTM;
-import lk.ijse.model.*;
+import lk.ijse.dao.*;
 import lk.ijse.util.Regex;
 import lk.ijse.util.TextFields;
 
-import java.sql.Date;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -28,7 +24,6 @@ import java.util.Optional;
 
 import static java.lang.Double.parseDouble;
 import static java.lang.Double.valueOf;
-import static lk.ijse.model.GRNModel.generateNextGRId;
 
 public class GRNFormController {
     public JFXComboBox cmbProduct;

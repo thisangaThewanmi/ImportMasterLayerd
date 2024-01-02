@@ -1,12 +1,9 @@
-package lk.ijse.model;
+package lk.ijse.dao;
 
 import lk.ijse.db.DbConnection;
-import lk.ijse.dto.CustomerDto;
 import lk.ijse.dto.MachineDto;
 import lk.ijse.dto.MachineInstallDto;
-import lk.ijse.dto.StockDto;
 import lk.ijse.dto.tm.MrnTM;
-import lk.ijse.dto.tm.StockTM;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

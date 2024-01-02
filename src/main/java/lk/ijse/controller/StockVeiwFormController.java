@@ -4,12 +4,9 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import lk.ijse.dto.EmployeeDto;
 import lk.ijse.dto.StockDto;
-import lk.ijse.dto.tm.EmployeeTM;
 import lk.ijse.dto.tm.StockTM;
-import lk.ijse.model.EmpModel;
-import lk.ijse.model.StockModel;
+import lk.ijse.dao.StockModel;
 
 import java.sql.SQLException;
 import java.util.ArrayList;

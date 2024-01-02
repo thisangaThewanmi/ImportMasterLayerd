@@ -1,15 +1,12 @@
-package lk.ijse.model;
+package lk.ijse.dao;
 
-import javafx.scene.control.Alert;
 import lk.ijse.db.DbConnection;
 import lk.ijse.dto.PlaceGRNdto;
-import lk.ijse.dto.PlaceOrderDto;
 
 
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.time.LocalDate;
-import java.util.Date;
 
 public class PlaceGRNModel {
 

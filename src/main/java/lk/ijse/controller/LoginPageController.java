@@ -8,7 +8,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import lk.ijse.model.LoginModel;
+import lk.ijse.dao.LoginModel;
 
 import java.io.IOException;
 import java.sql.SQLException;

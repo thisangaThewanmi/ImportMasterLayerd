@@ -10,17 +10,14 @@ import javafx.scene.Cursor;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
-import javafx.util.StringConverter;
 import lk.ijse.dto.*;
-import lk.ijse.dto.tm.CartTM;
 import lk.ijse.dto.tm.StockTM;
-import lk.ijse.model.*;
+import lk.ijse.dao.*;
 
 import java.time.LocalDate;
 
 
 import java.sql.SQLException;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -55,7 +52,7 @@ public class PlaceOrderFormController {
     public Label lblDate;
 
 
-    private CusModel customerModel = new CusModel();
+    private CustomerDaoImpl customerModel = new CustomerDaoImpl();
     private StockModel stockModel = new StockModel();
     private OrderModel orderModel = new OrderModel();
 
@@ -337,7 +334,7 @@ public class PlaceOrderFormController {
         String id = (String) cmbCustomer.getValue();
 //        CustomerModel customerModel = new CustomerModel();
         try {
-            CustomerDto customerDto = CusModel.searchCustomer(id);
+            CustomerDto customerDto = CustomerDaoImpl.searchCustomer(id);
             txtCustomerName.setText(customerDto.getName());
 
         } catch (SQLException e) {

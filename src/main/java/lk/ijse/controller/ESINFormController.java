@@ -12,7 +12,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.util.StringConverter;
 import lk.ijse.dto.*;
 import lk.ijse.dto.tm.CartTM;
-import lk.ijse.model.*;
+import lk.ijse.dao.*;
 import lk.ijse.util.Regex;
 import lk.ijse.util.TextFields;
 

@@ -12,14 +12,11 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
 import lk.ijse.dto.MachineDto;
 import lk.ijse.dto.PlaceMrnDto;
-import lk.ijse.dto.PlaceOrderDto;
 import lk.ijse.dto.supDto;
 import lk.ijse.dto.tm.MrnTM;
-import lk.ijse.dto.tm.StockTM;
-import lk.ijse.model.MachineModel;
-import lk.ijse.model.PlaceMRNModel;
-import lk.ijse.model.PlaceOrderModel;
-import lk.ijse.model.supModel;
+import lk.ijse.dao.MachineModel;
+import lk.ijse.dao.PlaceMRNModel;
+import lk.ijse.dao.supModel;
 import lk.ijse.util.Regex;
 import lk.ijse.util.TextFields;
 
@@ -30,7 +27,6 @@ import java.util.List;
 import java.util.Optional;
 
 import static java.lang.Double.parseDouble;
-import static lk.ijse.model.MachineModel.generateNextMRId;
 
 public class MachineGRNFormController {
     public TableView tblMachineGRN;

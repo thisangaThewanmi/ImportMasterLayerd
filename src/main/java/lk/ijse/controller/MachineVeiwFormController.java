@@ -5,11 +5,8 @@ import javafx.collections.ObservableList;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import lk.ijse.dto.MachineDto;
-import lk.ijse.dto.StockDto;
 import lk.ijse.dto.tm.MachineTM;
-import lk.ijse.dto.tm.StockTM;
-import lk.ijse.model.MachineModel;
-import lk.ijse.model.StockModel;
+import lk.ijse.dao.MachineModel;
 
 
 import java.sql.SQLException;

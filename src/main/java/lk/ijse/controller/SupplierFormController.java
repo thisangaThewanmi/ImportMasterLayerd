@@ -9,13 +9,10 @@ import javafx.scene.control.*;
 
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
-import lk.ijse.dto.CustomerDto;
 import lk.ijse.dto.supDto;
 
-import lk.ijse.dto.tm.CustomerTM;
 import lk.ijse.dto.tm.SupplierTm;
-import lk.ijse.model.CusModel;
-import lk.ijse.model.supModel;
+import lk.ijse.dao.supModel;
 import lk.ijse.util.Regex;
 import lk.ijse.util.TextFields;
 

@@ -9,16 +9,15 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
 import lk.ijse.dto.CustomerDto;
 import lk.ijse.dto.tm.CustomerTM;
-import lk.ijse.model.CusModel;
+import lk.ijse.dao.CustomerDaoImpl;
 import lk.ijse.util.Regex;
 import lk.ijse.util.TextFields;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
-import static lk.ijse.model.CusModel.getAllCustomers;
+import static lk.ijse.dao.CustomerDaoImpl.getAllCustomers;
 
 public class CustomerFormController {
     public JFXTextField txtId;
@@ -69,7 +68,7 @@ public class CustomerFormController {
 
 //        var model = new CustomerModel();
         try {
-            boolean isUpdated = CusModel.updateCustomer(dto);
+            boolean isUpdated = CustomerDaoImpl.updateCustomer(dto);
             if(isUpdated) {
                 new Alert(Alert.AlertType.CONFIRMATION, "customer updated!").show();
             }
@@ -106,7 +105,7 @@ public class CustomerFormController {
         var dto = new CustomerDto(id,name,address,tel);
 
         try {
-            boolean isSaved = CusModel.saveCustomer(dto);
+            boolean isSaved = CustomerDaoImpl.saveCustomer(dto);
 
             if(isSaved){
                 new Alert(Alert.AlertType.CONFIRMATION,"Customer Saved Successfully").showAndWait();
@@ -131,7 +130,7 @@ public class CustomerFormController {
             Button button = new Button("Delete");
             button.setOnAction(e -> {
                 try {
-                    boolean isDeleted = CusModel.deleteCustomer(customerTM.getId());
+                    boolean isDeleted = CustomerDaoImpl.deleteCustomer(customerTM.getId());
 
                     if(isDeleted){
                         tblCustomer.refresh();
@@ -204,7 +203,7 @@ public class CustomerFormController {
         String telNo = txtTel.getText();
 
         try {
-            CustomerDto dto = CusModel.searchCustomer(id);
+            CustomerDto dto = CustomerDaoImpl.searchCustomer(id);
 
             if (dto != null) {
                 txtId.setText(dto.getId());
