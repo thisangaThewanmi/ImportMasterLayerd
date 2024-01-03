@@ -2,6 +2,7 @@ package lk.ijse.dao;
 
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 public interface CrudDao<T> extends  SuperDao {
@@ -12,7 +13,7 @@ public interface CrudDao<T> extends  SuperDao {
 
           boolean update(T dto) throws SQLException ;
 
-         List<T> getAll() throws SQLException;
+         ArrayList<T> getAll() throws SQLException;
 
 
     boolean exsit(String id) throws SQLException, ClassNotFoundException;
@@ -21,6 +22,6 @@ public interface CrudDao<T> extends  SuperDao {
 
     T search(String newValue) throws SQLException, ClassNotFoundException;
 
-    public char[] count() throws SQLException;
+     char[] count() throws SQLException;
 
 }

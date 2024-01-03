@@ -62,7 +62,7 @@ public class PlaceOrderFormController {
         setCellValueFactory();
         generateNextOrderId();
         setDate();
-        loadCustomerIds();
+        //loadCustomerIds();
         loadMachineIds();
         loadEngineerIds();
         loadItemCodes();
@@ -161,11 +161,11 @@ public class PlaceOrderFormController {
         lblDate.setText(String.valueOf(LocalDate.now()));
     }
 
-    private void loadCustomerIds() {
+    /*private void loadCustomerIds() {
         ObservableList<String> obList = FXCollections.observableArrayList();
 
         try {
-            List<CustomerDto> idList = customerModel.getAllCustomers();
+            List<CustomerDto> idList = .getAllCustomers();
 
             for (CustomerDto dto : idList) {
                 obList.add(dto.getId());
@@ -176,7 +176,7 @@ public class PlaceOrderFormController {
             throw new RuntimeException(e);
         }
     }
-
+*/
     public void cmbEngOnAction(ActionEvent actionEvent) {
         String id = (String) cmbEngineer.getValue();
 //        CustomerModel customerModel = new CustomerModel();
@@ -330,7 +330,7 @@ public class PlaceOrderFormController {
     }
 
 
-    public void cmbCustomerOnAction(ActionEvent actionEvent) {
+    /*public void cmbCustomerOnAction(ActionEvent actionEvent) {
         String id = (String) cmbCustomer.getValue();
 //        CustomerModel customerModel = new CustomerModel();
         try {
@@ -341,6 +341,6 @@ public class PlaceOrderFormController {
             throw new RuntimeException(e);
         }
 
-    }
+    }*/
     
 }

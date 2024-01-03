@@ -5,7 +5,10 @@ import com.jfoenix.controls.JFXTextField;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
+import lk.ijse.bo.CustomerBO;
+import lk.ijse.bo.CustomerBOImpl;
 import lk.ijse.dto.*;
 import lk.ijse.dao.*;
 
@@ -28,8 +31,7 @@ public class NewMachineInstallationController {
     public JFXComboBox cmbEngineer;
     public JFXTextField txtPrice;
 
-    private CustomerDaoImpl customerModel = new CustomerDaoImpl();
-
+    CustomerBO customerBO = new CustomerBOImpl();
     private MachineModel machineModel = new MachineModel();
 
     private EngineerModel engineerModel = new EngineerModel();
@@ -76,7 +78,7 @@ public class NewMachineInstallationController {
         }
     }
 
-    public void cmbCustomerOnAction(ActionEvent actionEvent) {
+   /* public void cmbCustomerOnAction(ActionEvent actionEvent) {
         String id = (String) cmbCustomer.getValue();
 //        CustomerModel customerModel = new CustomerModel();
         try {
@@ -86,7 +88,7 @@ public class NewMachineInstallationController {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-    }
+    }*/
 
 
     public void cmbEngOnAction(ActionEvent actionEvent) {
@@ -105,7 +107,7 @@ public class NewMachineInstallationController {
         ObservableList<String> obList = FXCollections.observableArrayList();
 
         try {
-            List<CustomerDto> idList = customerModel.getAllCustomers();
+            List<CustomerDto> idList = customerBO.getAllCustomers();
 
             for (CustomerDto dto : idList) {
                 obList.add(dto.getId());
@@ -113,7 +115,10 @@ public class NewMachineInstallationController {
 
             cmbCustomer.setItems(obList);
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            new Alert(Alert.AlertType.ERROR,e.getMessage()).show();
+        } catch (ClassNotFoundException e) {
+            new Alert(Alert.AlertType.ERROR,e.getMessage()).show();
+
         }
     }
 

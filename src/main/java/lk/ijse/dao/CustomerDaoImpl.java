@@ -2,6 +2,7 @@ package lk.ijse.dao;
 
 import lk.ijse.db.DbConnection;
 import lk.ijse.dto.CustomerDto;
+import lk.ijse.entity.Customer;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -11,22 +12,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CustomerDaoImpl implements CustomerDao {
-    public static boolean saveCustomer(CustomerDto dto) throws SQLException {
 
-        Connection connection = DbConnection.getInstance().getConnection();
 
-        String sql = "INSERT INTO customer VALUES(?,?,?,?)";
-        PreparedStatement pstm = connection.prepareStatement(sql);
 
-        pstm.setString(1, dto.getId());
-        pstm.setString(2, dto.getName());
-        pstm.setString(3, dto.getAddress());
-        pstm.setString(4, dto.getTel());
-
-        return pstm.executeUpdate() > 0;
-
-    }
-
+/*
     public static boolean deleteCustomer(String id) throws SQLException {
         Connection connection = DbConnection.getInstance().getConnection();
 
@@ -125,6 +114,71 @@ public class CustomerDaoImpl implements CustomerDao {
 
         return resultCharArray;
     }
+*/
+
+    @Override
+    public boolean save(Customer entity) throws SQLException {
+        return SQLUtil.execute("INSERT INTO Customer (id,name, address,tel) VALUES (?,?,?,?)",
+                entity.getId(),entity.getName(),entity.getAddress(),entity.getTel());
+
     }
+
+
+    @Override
+    public boolean delete(String id) throws SQLException {
+        return SQLUtil.execute("DELETE FROM Customer WHERE id=?",
+                id);
+    }
+
+    @Override
+    public boolean update(Customer entity) throws SQLException {
+        return SQLUtil.execute("UPDATE Customer SET name=?, address=? ,tel=? WHERE id=?",
+                entity.getName(),entity.getAddress(),entity.getTel(),entity.getId());
+    }
+
+    @Override
+    public ArrayList getAll() throws SQLException {
+        ResultSet rst = SQLUtil.execute("SELECT * FROM Customer");
+
+        ArrayList<Customer> getAllCustomer = new ArrayList<>();
+
+        while (rst.next()) {
+            Customer entity = new Customer(rst.getString("id"), rst.getString("name"), rst.getString("address"),rst.getString("tel"));
+            getAllCustomer.add(entity);
+        }
+
+        return getAllCustomer;
+    }
+
+    @Override
+    public boolean exsit(String id) throws SQLException, ClassNotFoundException {
+        ResultSet set = SQLUtil.execute("SELECT id FROM Customer WHERE id=?",
+                id);
+        return set.next();
+    }
+
+    @Override
+    public String nextId() throws SQLException, ClassNotFoundException {
+        ResultSet rst = SQLUtil.execute("SELECT id FROM Customer ORDER BY id DESC LIMIT 1;");
+        if (rst.next()) {
+            String id = rst.getString("id");
+            int newCustomerId = Integer.parseInt(id.replace("C00-", "")) + 1;
+            return String.format("C00-%03d", newCustomerId);
+        } else {
+            return "C00-001";
+        }
+    }
+
+
+    @Override
+    public Customer search(String newValue) throws SQLException, ClassNotFoundException {
+        return null;
+    }
+
+    @Override
+    public char[] count() throws SQLException {
+        return SQLUtil.execute("SELECT COUNT(id) FROM Customer;");
+    }
+}
 
 

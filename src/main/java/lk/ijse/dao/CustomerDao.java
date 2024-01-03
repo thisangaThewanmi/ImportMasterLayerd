@@ -1,4 +1,6 @@
 package lk.ijse.dao;
 
-public interface CustomerDao extends CrudDao {
+import lk.ijse.entity.Customer;
+
+public interface CustomerDao extends CrudDao <Customer>{
 }

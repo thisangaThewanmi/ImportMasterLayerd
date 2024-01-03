@@ -7,9 +7,10 @@ import javafx.event.ActionEvent;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
+import lk.ijse.bo.BOFactory;
+import lk.ijse.bo.CustomerBO;
 import lk.ijse.dto.CustomerDto;
 import lk.ijse.dto.tm.CustomerTM;
-import lk.ijse.dao.CustomerDaoImpl;
 import lk.ijse.util.Regex;
 import lk.ijse.util.TextFields;
 
@@ -17,7 +18,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import static lk.ijse.dao.CustomerDaoImpl.getAllCustomers;
+
 
 public class CustomerFormController {
     public JFXTextField txtId;
@@ -31,6 +32,7 @@ public class CustomerFormController {
     public TableColumn<CustomerTM,String> colTel;
     public TableColumn<CustomerTM, Button> colOption;
 
+    CustomerBO customerBO = (CustomerBO) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.CUSTOMER);
     public void initialize() {
         setCellValues();
         try {
@@ -67,19 +69,31 @@ public class CustomerFormController {
         var dto = new CustomerDto(id, name, address, tel);
 
 //        var model = new CustomerModel();
-        try {
-            boolean isUpdated = CustomerDaoImpl.updateCustomer(dto);
+        /*try {
+            boolean isUpdated = customerBO.updateCustomer(dto);
             if(isUpdated) {
                 new Alert(Alert.AlertType.CONFIRMATION, "customer updated!").show();
             }
         } catch (SQLException e) {
             new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
+        }*/
+
+        try {
+            boolean isUpdated = customerBO.updateCustomer(dto);
+            if(isUpdated) {
+                new Alert(Alert.AlertType.CONFIRMATION, "customer updated!").show();
+            }
+        } catch (SQLException e) {
+            new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
         }
         tblCustomer.refresh();
 
     }
 
     public void btnClearOnAction(ActionEvent actionEvent) {
+
         clearFeilds();
     }
 
@@ -104,7 +118,7 @@ public class CustomerFormController {
 
         var dto = new CustomerDto(id,name,address,tel);
 
-        try {
+        /*try {
             boolean isSaved = CustomerDaoImpl.saveCustomer(dto);
 
             if(isSaved){
@@ -113,13 +127,31 @@ public class CustomerFormController {
             }
         } catch (SQLException e) {
             new Alert(Alert.AlertType.ERROR,"An Error Occured").showAndWait();
+        }*/
+
+        try {
+            boolean isSaved = customerBO.saveCustomer(dto);
+
+            if(isSaved){
+                new Alert(Alert.AlertType.CONFIRMATION,"Customer Saved Successfully").showAndWait();
+                tblCustomer.refresh();
+            }
+        } catch (SQLException e) {
+               new Alert(Alert.AlertType.ERROR,e.getMessage()).show();
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
         }
     }
 
     public void setTableData() throws SQLException {
         //tblCustomer.setItems(FXCollections.observableArrayList(CusModel.getAllCustomers().stream().map(e -> new CustomerTM(e.getId(), e.getName(), e.getAddress(), e.getTel(), new Button())).collect(Collectors.toList()))); ;
         List<CustomerTM> list = new ArrayList<>();
-        List<CustomerDto> allCustomers = getAllCustomers();
+        List<CustomerDto> allCustomers = null;
+        try {
+            allCustomers = customerBO.getAllCustomers();
+        } catch (ClassNotFoundException e) {
+            new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
+        }
         System.out.println(allCustomers.size());
         for (CustomerDto allCustomer : allCustomers) {
             CustomerTM customerTM = new CustomerTM();
@@ -130,7 +162,7 @@ public class CustomerFormController {
             Button button = new Button("Delete");
             button.setOnAction(e -> {
                 try {
-                    boolean isDeleted = CustomerDaoImpl.deleteCustomer(customerTM.getId());
+                    boolean isDeleted = customerBO.deleteCustomer(allCustomer.getId());
 
                     if(isDeleted){
                         tblCustomer.refresh();
@@ -139,6 +171,9 @@ public class CustomerFormController {
                     }
                 } catch (SQLException ex) {
                     new Alert(Alert.AlertType.ERROR, ex.getMessage()).show();
+                } catch (ClassNotFoundException ex) {
+                    new Alert(Alert.AlertType.ERROR, ex.getMessage()).show();
+
                 }
             });
             button.getStyleClass().add("delete-button");
@@ -196,7 +231,7 @@ public class CustomerFormController {
         txtTel.requestFocus();
     }
 
-    void customerSearchOnAction(ActionEvent event) {
+  /*  public void customerSearchOnAction(ActionEvent event) {
         String id = txtId.getText();
         String name = txtName.getText();
         String address = txtAddress.getText();
@@ -217,4 +252,6 @@ public class CustomerFormController {
             new Alert(Alert.AlertType.INFORMATION, e.getMessage()).show();
    }
 }
+*/
+
 }

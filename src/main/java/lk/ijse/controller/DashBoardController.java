@@ -39,11 +39,11 @@ public class DashBoardController {
 
 
     public void initialize() throws SQLException {
-        setDataSuppliers();
+      /*  setDataSuppliers();
         setDataCustomers();
        // setDataMachiens();
        // setDataStock();
-        setDataOrders();
+        setDataOrders();*/
 
 
 
@@ -57,7 +57,7 @@ public class DashBoardController {
         lblStock.setText(String.valueOf(stockModel.countStock()));
     }
 
-    private void setDataMachiens() throws SQLException {
+    /*private void setDataMachiens() throws SQLException {
         lblMachines.setText(String.valueOf(machineModel.countMachines()));
     }
 
@@ -68,7 +68,7 @@ public class DashBoardController {
 
     private void setDataSuppliers() throws SQLException {
         lblSuppliers.setText(String.valueOf(supModel.countSuppliers()));
-    }
+    }*/
 
    /* private void setTimeDashboard(){
 
