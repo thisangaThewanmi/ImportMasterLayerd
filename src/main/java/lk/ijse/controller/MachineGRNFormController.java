@@ -10,13 +10,15 @@ import javafx.scene.Cursor;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
+import lk.ijse.bo.BOFactory;
+import lk.ijse.bo.SupplierBO;
 import lk.ijse.dto.MachineDto;
 import lk.ijse.dto.PlaceMrnDto;
 import lk.ijse.dto.supDto;
 import lk.ijse.dto.tm.MrnTM;
 import lk.ijse.dao.MachineModel;
 import lk.ijse.dao.PlaceMRNModel;
-import lk.ijse.dao.supModel;
+import lk.ijse.dao.SupplierDaoImpl;
 import lk.ijse.util.Regex;
 import lk.ijse.util.TextFields;
 
@@ -50,7 +52,7 @@ public class MachineGRNFormController {
     public JFXTextField txtUnitPrice;
     public JFXTextField txtSupplier;
 
-    private supModel supplierModel = new supModel();
+    SupplierBO supplierBO = (SupplierBO) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.SUPPLIER);
 
     private  MachineModel machineModel = new MachineModel();
 
@@ -92,7 +94,12 @@ public class MachineGRNFormController {
     private void loadAllSuppliers() throws SQLException {
         ObservableList<String> obList = FXCollections.observableArrayList();
 
-        List<supDto> idList = supplierModel.getAllSuppliers();
+        List<supDto> idList = null;
+        try {
+            idList = supplierBO.getAllSuppliers();
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
 
         for (supDto dto : idList) {
             obList.add(dto.getId());
@@ -117,18 +124,18 @@ public class MachineGRNFormController {
 
     }
 
-    public void cmbSupplierOnAction(ActionEvent actionEvent) throws SQLException {
+   /* public void cmbSupplierOnAction(ActionEvent actionEvent) throws SQLException {
         String id = (String) cmbSupplier.getValue();
 //        CustomerModel customerModel = new CustomerModel();
         try {
-            supDto supplierDto = supModel.searchSupplier(id);
+            supDto supplierDto = supplierBO(id);
             txtSupplier.setText(supplierDto.getName());
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
 
-    }
+    }*/
 
     public void cmbMachineOnAction(ActionEvent actionEvent) {
         String id = (String) cmbMachine.getValue();

@@ -27,7 +27,7 @@ public class DashBoardController {
     @FXML
     private Pane root;
 
-    private supModel supplierModel = new supModel();
+    private SupplierDaoImpl supplierModel = new SupplierDaoImpl();
 
     private CustomerDaoImpl customerModel = new CustomerDaoImpl();
 

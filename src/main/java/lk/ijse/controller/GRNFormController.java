@@ -10,6 +10,8 @@ import javafx.scene.Cursor;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
+import lk.ijse.bo.BOFactory;
+import lk.ijse.bo.SupplierBO;
 import lk.ijse.dto.*;
 import lk.ijse.dto.tm.GrnTM;
 import lk.ijse.dao.*;
@@ -49,13 +51,15 @@ public class GRNFormController {
 
     private ObservableList<GrnTM> oblist = FXCollections.observableArrayList();
 
+    SupplierBO supplierBO = (SupplierBO) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.SUPPLIER);
+
 
 
     private GRNModel GRNModel = new GRNModel();
 
     private StockModel stockModel = new StockModel();
 
-    private supModel supModel = new supModel();
+
 
 
     public void initialize() throws SQLException, ClassNotFoundException {
@@ -84,7 +88,12 @@ public class GRNFormController {
     private void loadAllSuppliers() throws SQLException {
         ObservableList<String> obList = FXCollections.observableArrayList();
 
-        List<supDto> idList = supModel.getAllSuppliers();
+        List<supDto> idList = null;
+        try {
+            idList = supplierBO.getAllSuppliers();
+        } catch (ClassNotFoundException e) {
+            new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
+        }
 
         for (supDto dto : idList) {
             obList.add(dto.getId());
@@ -117,7 +126,7 @@ public class GRNFormController {
 
     }
 
-    public void cmbSupplierOnAction(ActionEvent actionEvent) {
+    /*public void cmbSupplierOnAction(ActionEvent actionEvent) {
         String id = (String) cmbSupplier.getValue();
 //        CustomerModel customerModel = new CustomerModel();
         try {
@@ -128,7 +137,7 @@ public class GRNFormController {
             throw new RuntimeException(e);
         }
     }
-
+*/
 
         public void cmdProductOnAction(ActionEvent actionEvent) {
             String id = (String) cmbProduct.getValue();

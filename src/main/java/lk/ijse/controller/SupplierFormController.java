@@ -9,10 +9,11 @@ import javafx.scene.control.*;
 
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
+import lk.ijse.bo.BOFactory;
+import lk.ijse.bo.SupplierBO;
 import lk.ijse.dto.supDto;
 
 import lk.ijse.dto.tm.SupplierTm;
-import lk.ijse.dao.supModel;
 import lk.ijse.util.Regex;
 import lk.ijse.util.TextFields;
 
@@ -31,8 +32,9 @@ public class SupplierFormController {
     public TableColumn<SupplierTm,String> colAddress;
     public TableColumn <SupplierTm,String>colTel;
     public TableColumn <SupplierTm,Button>colOption;
-    private supModel supModel = new supModel();
 
+
+ SupplierBO supplierBO = (SupplierBO) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.SUPPLIER);
 
 
     public void initialize() {
@@ -47,7 +49,12 @@ public class SupplierFormController {
     public void setTableData() throws SQLException {
         //tblCustomer.setItems(FXCollections.observableArrayList(CusModel.getAllCustomers().stream().map(e -> new CustomerTM(e.getId(), e.getName(), e.getAddress(), e.getTel(), new Button())).collect(Collectors.toList()))); ;
         List<SupplierTm> list = new ArrayList<>();
-        List<supDto> allSuppliers = supModel.getAllSuppliers();
+        List<supDto> allSuppliers = null;
+        try {
+            allSuppliers = supplierBO.getAllSuppliers();
+        } catch (ClassNotFoundException e) {
+            new Alert(Alert.AlertType.ERROR, e.getMessage()).showAndWait();
+        }
         System.out.println(allSuppliers.size());
         for (supDto allSupplier: allSuppliers) {
             SupplierTm supplierTm = new SupplierTm();
@@ -58,11 +65,13 @@ public class SupplierFormController {
             Button button = new Button("Delete");
             button.setOnAction(e -> {
                 try {
-                    boolean isDeleted = supModel.deleteSupplier(supplierTm.getId());
+                    boolean isDeleted = supplierBO.deleteSupplier(supplierTm.getId());
                     if(isDeleted) {
                         new Alert(Alert.AlertType.CONFIRMATION, "supplier deleted!").show();
                     }
                 } catch (SQLException ex) {
+                    new Alert(Alert.AlertType.ERROR, ex.getMessage()).show();
+                } catch (ClassNotFoundException ex) {
                     new Alert(Alert.AlertType.ERROR, ex.getMessage()).show();
                 }
             });
@@ -102,17 +111,16 @@ public class SupplierFormController {
 
 
         try {
-          boolean  isSaved = supModel.SaveSupplier(dto);
+          boolean  isSaved = supplierBO.saveSupplier(dto);
 
           if(isSaved){
               new Alert(Alert.AlertType.CONFIRMATION,"supplier Saved").show();
           }
         } catch (SQLException e) {
            new Alert(Alert.AlertType.ERROR,e.getMessage()).show();
+        } catch (ClassNotFoundException e) {
+            new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
         }
-
-
-
 
 
     }
@@ -140,11 +148,13 @@ public class SupplierFormController {
 
 //        var model = new CustomerModel();
         try {
-            boolean isUpdated = supModel.updateCustomer(dto);
+            boolean isUpdated = supplierBO.updateSupplier(dto);
             if(isUpdated) {
                 new Alert(Alert.AlertType.CONFIRMATION, "supplier updated!").show();
             }
         } catch (SQLException e) {
+            new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
+        } catch (ClassNotFoundException e) {
             new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
         }
 
