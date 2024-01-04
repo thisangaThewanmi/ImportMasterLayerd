@@ -10,10 +10,15 @@ import javafx.scene.control.Alert;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import lk.ijse.bo.BOFactory;
+import lk.ijse.bo.EmployeeBO;
+import lk.ijse.bo.EmployeeBOImpl;
+import lk.ijse.bo.EngineerBO;
+import lk.ijse.dao.DAOFactory;
 import lk.ijse.dto.EmployeeDto;
 import lk.ijse.dto.EngineerDTO;
-import lk.ijse.dao.EmpModel;
-import lk.ijse.dao.EngineerModel;
+import lk.ijse.dao.EngineerDaoImpl;
+import lk.ijse.entity.Engineer;
 import lk.ijse.util.Regex;
 import lk.ijse.util.TextFields;
 
@@ -28,6 +33,9 @@ public class EmployeeFormController {
     public  JFXTextField txtAddress;
     public  JFXTextField txtTel;
     public JFXComboBox<String> cmbType;
+
+    EmployeeBO employeeBO = (EmployeeBO) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.EMPLOYEE);
+    EngineerBO engineerBO = (EngineerBO) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.ENGINNER);
 
 
     public void initialize() {
@@ -52,7 +60,7 @@ public class EmployeeFormController {
 
 //        var model = new CustomerModel();
         try {
-            boolean isDeleted = EmpModel.deleteCustomer(id);
+            boolean isDeleted = employeeBO.deleteEmployee(id);
             if(isDeleted) {
                 new Alert(Alert.AlertType.CONFIRMATION, "employee deleted!").show();
             } else {
@@ -60,29 +68,75 @@ public class EmployeeFormController {
             }
         } catch (SQLException e) {
             new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
+        } catch (ClassNotFoundException e) {
+            new Alert(Alert.AlertType.ERROR, e.getMessage()).showAndWait();
         }
 
     }
 
     public void btnUpdateOnAction(ActionEvent actionEvent) {
+
+        System.out.println("BtnUpdated clicked");
         String id = txtId.getText();
         String name = txtName.getText();
         String address = txtAddress.getText();
         String tel = txtTel.getText();
         int type = cmbType.getSelectionModel().getSelectedIndex();
 
-        var dto = new EmployeeDto(id, name, address, tel);
+
 
 //        var model = new CustomerModel();
-        try {
-            boolean isUpdated = EmpModel.updateEmployee(dto);
+       /* try {
+            boolean isUpdated = employeeBO.updateEmployee(dto);
             if(isUpdated) {
                 new Alert(Alert.AlertType.CONFIRMATION, "Employee updated!").show();
             }
         } catch (SQLException e) {
             new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
+        } catch (ClassNotFoundException e) {
+            new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
+
+        }*/
+
+        if(type==-1){
+            new Alert(Alert.AlertType.ERROR,"Please Select Type").show();
+            return;
+        }
+
+        if(type==0){
+            var dto = new EngineerDTO(id,name,address,tel);
+            try {
+                boolean isUpdated = engineerBO.updateEnginner(dto);
+
+                if(isUpdated){
+                    new Alert(Alert.AlertType.CONFIRMATION,"Engineer Updated Successfully").showAndWait();
+                }
+            } catch (SQLException e) {
+                new Alert(Alert.AlertType.ERROR, e.getMessage()).showAndWait();
+            } catch (ClassNotFoundException e) {
+                new Alert(Alert.AlertType.ERROR, e.getMessage()).showAndWait();
+            }
+        }
+
+        if(type==1) {
+            var dto = new EmployeeDto(id, name, address, tel);
+            try {
+                boolean isUpdated =employeeBO.updateEmployee(dto);
+
+                if (isUpdated) {
+                    new Alert(Alert.AlertType.CONFIRMATION, "Employee Updated Successfully").showAndWait();
+                }
+
+            } catch (SQLException e) {
+                new Alert(Alert.AlertType.ERROR, e.getMessage()).showAndWait();
+            } catch (ClassNotFoundException e) {
+                new Alert(Alert.AlertType.ERROR, e.getMessage()).showAndWait();
+
+            }
+
         }
     }
+
 
     public void btnSaveOnAction(ActionEvent actionEvent) {
 
@@ -100,12 +154,14 @@ public class EmployeeFormController {
         if(value==0){
             var dto = new EngineerDTO(id,name,address,tel);
             try {
-               boolean isSaved = EngineerModel.saveEngineer(dto);
+               boolean isSaved = engineerBO.saveEngineer(dto);
 
                if(isSaved){
                    new Alert(Alert.AlertType.CONFIRMATION,"Engineer Saved Successfully").showAndWait();
                }
             } catch (SQLException e) {
+                new Alert(Alert.AlertType.ERROR, e.getMessage()).showAndWait();
+            } catch (ClassNotFoundException e) {
                 new Alert(Alert.AlertType.ERROR, e.getMessage()).showAndWait();
             }
         }
@@ -113,7 +169,7 @@ public class EmployeeFormController {
         if(value==1) {
             var dto = new EmployeeDto(id, name, address, tel);
             try {
-                boolean isSaved = EmpModel.saveEmployee(dto);
+                boolean isSaved =employeeBO.saveEmployee(dto);
 
                 if (isSaved) {
                     new Alert(Alert.AlertType.CONFIRMATION, "Employee Saved Successfully").showAndWait();
@@ -121,6 +177,9 @@ public class EmployeeFormController {
 
             } catch (SQLException e) {
                 new Alert(Alert.AlertType.ERROR, e.getMessage()).showAndWait();
+            } catch (ClassNotFoundException e) {
+                new Alert(Alert.AlertType.ERROR, e.getMessage()).showAndWait();
+
             }
 
         }

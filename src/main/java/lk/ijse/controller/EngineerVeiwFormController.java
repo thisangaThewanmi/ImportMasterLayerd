@@ -7,9 +7,12 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import lk.ijse.bo.BOFactory;
+import lk.ijse.bo.EngineerBO;
+import lk.ijse.bo.EnginnerBOImpl;
 import lk.ijse.dto.EngineerDTO;
 import lk.ijse.dto.tm.EnginnerTM;
-import lk.ijse.dao.EngineerModel;
+
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -22,6 +25,8 @@ public class EngineerVeiwFormController {
     public TableColumn <EngineerDTO,String>colAddress;
     public TableColumn <EngineerDTO,String>colTel;
     public TableColumn <EngineerDTO,Button>colOption;
+
+   EngineerBO engineerBO = (EngineerBO) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.ENGINNER);
 
     public void initialize() {
         setCellValues();
@@ -45,7 +50,7 @@ public class EngineerVeiwFormController {
     public void setTableData() throws SQLException, ClassNotFoundException {
 
         List<EnginnerTM> list = new ArrayList<>();
-        List<EngineerDTO>allEngineers = EngineerModel.getAllEngineers();
+        List<EngineerDTO>allEngineers = engineerBO.getAllEngineers();
 
         for (EngineerDTO allEngineer : allEngineers) {
             EnginnerTM enginnerTM = new EnginnerTM();
@@ -56,13 +61,15 @@ public class EngineerVeiwFormController {
             Button button = new Button("Delete");
             button.setOnAction(e -> {
                 try {
-                    boolean isDeleted = EngineerModel.deleteEngineer(enginnerTM.getId());
+                    boolean isDeleted = engineerBO.deleteEnginner(enginnerTM.getId());
 
                     if(isDeleted){
                         new Alert(Alert.AlertType.CONFIRMATION, "Engineer deleted!").show();
                     }
 
                 } catch (SQLException ex) {
+                    new Alert(Alert.AlertType.ERROR, ex.getMessage()).show();
+                } catch (ClassNotFoundException ex) {
                     new Alert(Alert.AlertType.ERROR, ex.getMessage()).show();
                 }
             });

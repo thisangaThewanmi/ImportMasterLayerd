@@ -1,5 +1,7 @@
 package lk.ijse.bo;
 
+import lk.ijse.entity.Engineer;
+
 public class BOFactory {
     private static BOFactory boFactory;
 
@@ -10,17 +12,17 @@ public class BOFactory {
         return (boFactory == null) ? boFactory = new BOFactory() : boFactory;
     }
     public enum BOTypes {
-        CUSTOMER, EMPLOYEE,ENGINEER
+        CUSTOMER, EMPLOYEE, ENGINNER
     }
 
     public SuperBO getBO (BOTypes boTypes){
         switch (boTypes){
             case CUSTOMER:
                 return new CustomerBOImpl();
-            /*case ITEM:
-                return new ItemBOImpl();
-            case PLACE_ORDER:
-                return new PlaceOrderBOImpl();*/
+            case EMPLOYEE:
+                return new EmployeeBOImpl();
+            case ENGINNER:
+                return new EnginnerBOImpl();
             default:
                 return null;
         }

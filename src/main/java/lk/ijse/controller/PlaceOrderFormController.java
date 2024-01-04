@@ -10,6 +10,9 @@ import javafx.scene.Cursor;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
+import lk.ijse.bo.BOFactory;
+import lk.ijse.bo.CustomerBO;
+import lk.ijse.bo.EngineerBO;
 import lk.ijse.dto.*;
 import lk.ijse.dto.tm.StockTM;
 import lk.ijse.dao.*;
@@ -52,7 +55,8 @@ public class PlaceOrderFormController {
     public Label lblDate;
 
 
-    private CustomerDaoImpl customerModel = new CustomerDaoImpl();
+    EngineerBO engineerBO = (EngineerBO) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.ENGINNER);
+    CustomerBO customerBO = (CustomerBO) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.CUSTOMER);
     private StockModel stockModel = new StockModel();
     private OrderModel orderModel = new OrderModel();
 
@@ -68,10 +72,18 @@ public class PlaceOrderFormController {
         loadItemCodes();
     }
 
-    private void loadEngineerIds() throws SQLException {
+    private void loadEngineerIds()  {
         ObservableList<String> obList = FXCollections.observableArrayList();
 
-        List<EngineerDTO> idList = EngineerModel.getAllEngineers();
+        List<EngineerDTO> idList = null;
+        try {
+            idList = engineerBO.getAllEngineers();
+        } catch (SQLException e) {
+             new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
+        } catch (ClassNotFoundException e) {
+            new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
+
+        }
 
         for (EngineerDTO dto : idList) {
             obList.add(dto.getEId());
@@ -177,18 +189,18 @@ public class PlaceOrderFormController {
         }
     }
 */
-    public void cmbEngOnAction(ActionEvent actionEvent) {
+   /* public void cmbEngOnAction(ActionEvent actionEvent) {
         String id = (String) cmbEngineer.getValue();
 //        CustomerModel customerModel = new CustomerModel();
         try {
-           EngineerDTO engineerDto = EngineerModel.searchEngineer(id);
+           EngineerDTO engineerDto = engineerBO.searchEngineer(id);
             txtEngName.setText(engineerDto.getName());
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
-        }
+        }*/
 
-    }
+   // }
 
 
 

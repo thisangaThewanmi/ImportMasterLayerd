@@ -10,6 +10,8 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
 import javafx.util.StringConverter;
+import lk.ijse.bo.BOFactory;
+import lk.ijse.bo.EngineerBO;
 import lk.ijse.dto.*;
 import lk.ijse.dto.tm.CartTM;
 import lk.ijse.dao.*;
@@ -39,6 +41,8 @@ public class ESINFormController {
     public TableColumn<CartTM,Double> colUnitPrice;
     public TableColumn<CartTM,Double> colTotal;
     public TableColumn<CartTM, Button> colAction;
+
+    EngineerBO engineerBO = (EngineerBO) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.ENGINNER);
 
 
     public void initialize(){
@@ -79,7 +83,7 @@ public class ESINFormController {
 
     public void setComboBox(){
         try {
-            List<EngineerDTO> list = EngineerModel.getAllEngineers();
+            List<EngineerDTO> list = engineerBO.getAllEngineers();
             ObservableList<EngineerDTO> n_list = FXCollections.observableArrayList(list);
 
             cmbEngineer.setItems(n_list);

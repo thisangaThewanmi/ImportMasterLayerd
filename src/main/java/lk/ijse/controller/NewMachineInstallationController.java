@@ -7,8 +7,11 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
+
+import lk.ijse.bo.BOFactory;
 import lk.ijse.bo.CustomerBO;
-import lk.ijse.bo.CustomerBOImpl;
+import lk.ijse.bo.EngineerBO;
+import lk.ijse.bo.EnginnerBOImpl;
 import lk.ijse.dto.*;
 import lk.ijse.dao.*;
 
@@ -31,10 +34,12 @@ public class NewMachineInstallationController {
     public JFXComboBox cmbEngineer;
     public JFXTextField txtPrice;
 
-    CustomerBO customerBO = new CustomerBOImpl();
+
     private MachineModel machineModel = new MachineModel();
 
-    private EngineerModel engineerModel = new EngineerModel();
+    EngineerBO engineerBO = (EngineerBO) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.ENGINNER);
+  CustomerBO customerBO = (CustomerBO) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.CUSTOMER);
+
 
 
     public void initialize() throws SQLException {
@@ -91,18 +96,19 @@ public class NewMachineInstallationController {
     }*/
 
 
-    public void cmbEngOnAction(ActionEvent actionEvent) {
+   /* public void cmbEngOnAction(ActionEvent actionEvent) {
         String id = (String) cmbEngineer.getValue();
 //        CustomerModel customerModel = new CustomerModel();
         try {
-            EngineerDTO engineerDto = EngineerModel.searchEngineer(id);
+            EngineerDTO engineerDto = engineerBO.searchEngineer(id);
+
             lblEngName.setText(engineerDto.getName());
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }
-
+*/
     private void loadCustomerIds() {
         ObservableList<String> obList = FXCollections.observableArrayList();
 
@@ -142,7 +148,12 @@ public class NewMachineInstallationController {
     private void loadEngineerIds() throws SQLException {
         ObservableList<String> obList = FXCollections.observableArrayList();
 
-        List<EngineerDTO> idList = engineerModel.getAllEngineers();
+        List<EngineerDTO> idList = null;
+        try {
+            idList = engineerBO.getAllEngineers();
+        } catch (ClassNotFoundException e) {
+            new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
+        }
 
         for (EngineerDTO dto : idList) {
             obList.add(dto.getEId());

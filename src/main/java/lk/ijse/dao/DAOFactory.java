@@ -18,18 +18,18 @@ public class DAOFactory {
     }
 
     public enum DAOTypes {
-        CUSTOMER, EMPLOYEE, ENGINEER
+        CUSTOMER, EMPLOYEE, ENGINNER
     }
 
     public SuperDao getDAO(DAOTypes daoTypes) {
         switch (daoTypes) {
             case CUSTOMER:
                 return new CustomerDaoImpl();
-            /*case ITEM:
-                return new ItemDAOImpl();
-            case ORDER:
-                return new OrderDAOImpl();
-            case ORDER_DETAIL:
+            case EMPLOYEE:
+                return new EmployeeDaoImpl();
+            case ENGINNER:
+                return new EngineerDaoImpl();
+            /*case ORDER_DETAIL:
                 return new OrderDetailDAOImpl();
             case QUERY:
                 return new QueryDAOImpl();*/

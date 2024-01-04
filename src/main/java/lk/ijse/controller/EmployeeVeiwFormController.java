@@ -7,15 +7,21 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import lk.ijse.bo.BOFactory;
+import lk.ijse.bo.EmployeeBO;
+import lk.ijse.bo.EmployeeBOImpl;
+import lk.ijse.dao.DAOFactory;
 import lk.ijse.dto.EmployeeDto;
 import lk.ijse.dto.tm.EmployeeTM;
-import lk.ijse.dao.EmpModel;
+
 
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class EmployeeVeiwFormController {
+
+    EmployeeBO employeeBO= (EmployeeBO) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.EMPLOYEE);
     public TableView<EmployeeTM> tblEmployee;
     public TableColumn <EmployeeTM,String>colId;
     public TableColumn <EmployeeTM,String>colName;
@@ -44,7 +50,7 @@ public class EmployeeVeiwFormController {
     public void setTableData() throws SQLException, ClassNotFoundException {
 
         List<EmployeeTM>list = new ArrayList<>();
-        List<EmployeeDto>allEmployees = EmpModel.getAllEmployees();
+        List<EmployeeDto>allEmployees = employeeBO.getAllEmployee();
 
         for (EmployeeDto allEmployee : allEmployees) {
             EmployeeTM employeeTM = new EmployeeTM();
@@ -55,12 +61,14 @@ public class EmployeeVeiwFormController {
             Button button = new Button("Delete");
             button.setOnAction(e -> {
                 try {
-                  boolean isDeleted = EmpModel.deleteEmployee(employeeTM.getId());
+                  boolean isDeleted = employeeBO.deleteEmployee(employeeTM.getId());
 
                   if(isDeleted){
                       new Alert(Alert.AlertType.CONFIRMATION, "Employee deleted!").show();
                   }
                 } catch (SQLException ex) {
+                    new Alert(Alert.AlertType.ERROR, ex.getMessage()).show();
+                } catch (ClassNotFoundException ex) {
                     new Alert(Alert.AlertType.ERROR, ex.getMessage()).show();
                 }
             });

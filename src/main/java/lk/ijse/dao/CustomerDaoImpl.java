@@ -126,19 +126,19 @@ public class CustomerDaoImpl implements CustomerDao {
 
     @Override
     public boolean delete(String id) throws SQLException {
-        return SQLUtil.execute("DELETE FROM Customer WHERE id=?",
+        return SQLUtil.execute("DELETE FROM customer WHERE id=?",
                 id);
     }
 
     @Override
     public boolean update(Customer entity) throws SQLException {
-        return SQLUtil.execute("UPDATE Customer SET name=?, address=? ,tel=? WHERE id=?",
+        return SQLUtil.execute("UPDATE customer SET name=?, address=? ,tel=? WHERE id=?",
                 entity.getName(),entity.getAddress(),entity.getTel(),entity.getId());
     }
 
     @Override
     public ArrayList getAll() throws SQLException {
-        ResultSet rst = SQLUtil.execute("SELECT * FROM Customer");
+        ResultSet rst = SQLUtil.execute("SELECT * FROM customer");
 
         ArrayList<Customer> getAllCustomer = new ArrayList<>();
 
@@ -152,14 +152,14 @@ public class CustomerDaoImpl implements CustomerDao {
 
     @Override
     public boolean exsit(String id) throws SQLException, ClassNotFoundException {
-        ResultSet set = SQLUtil.execute("SELECT id FROM Customer WHERE id=?",
+        ResultSet set = SQLUtil.execute("SELECT id FROM customer WHERE id=?",
                 id);
         return set.next();
     }
 
     @Override
     public String nextId() throws SQLException, ClassNotFoundException {
-        ResultSet rst = SQLUtil.execute("SELECT id FROM Customer ORDER BY id DESC LIMIT 1;");
+        ResultSet rst = SQLUtil.execute("SELECT id FROM customer ORDER BY id DESC LIMIT 1;");
         if (rst.next()) {
             String id = rst.getString("id");
             int newCustomerId = Integer.parseInt(id.replace("C00-", "")) + 1;
@@ -177,7 +177,7 @@ public class CustomerDaoImpl implements CustomerDao {
 
     @Override
     public char[] count() throws SQLException {
-        return SQLUtil.execute("SELECT COUNT(id) FROM Customer;");
+        return SQLUtil.execute("SELECT COUNT(id) FROM customer;");
     }
 }
 
