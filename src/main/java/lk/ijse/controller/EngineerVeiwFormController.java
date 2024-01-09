@@ -9,7 +9,6 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import lk.ijse.bo.BOFactory;
 import lk.ijse.bo.EngineerBO;
-import lk.ijse.bo.EnginnerBOImpl;
 import lk.ijse.dto.EngineerDTO;
 import lk.ijse.dto.tm.EnginnerTM;
 

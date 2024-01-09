@@ -20,8 +20,10 @@ public interface CrudDao<T> extends  SuperDao {
 
     String nextId() throws SQLException, ClassNotFoundException;
 
-    T search(String newValue) throws SQLException, ClassNotFoundException;
+    T search(String id) throws SQLException, ClassNotFoundException;
 
      char[] count() throws SQLException;
+
+
 
 }

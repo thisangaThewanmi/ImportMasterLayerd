@@ -11,6 +11,7 @@ import lk.ijse.bo.BOFactory;
 import lk.ijse.bo.CustomerBO;
 import lk.ijse.dto.CustomerDto;
 import lk.ijse.dto.tm.CustomerTM;
+import lk.ijse.entity.Customer;
 import lk.ijse.util.Regex;
 import lk.ijse.util.TextFields;
 
@@ -68,15 +69,6 @@ public class CustomerFormController {
 
         var dto = new CustomerDto(id, name, address, tel);
 
-//        var model = new CustomerModel();
-        /*try {
-            boolean isUpdated = customerBO.updateCustomer(dto);
-            if(isUpdated) {
-                new Alert(Alert.AlertType.CONFIRMATION, "customer updated!").show();
-            }
-        } catch (SQLException e) {
-            new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
-        }*/
 
         try {
             boolean isUpdated = customerBO.updateCustomer(dto);
@@ -118,16 +110,7 @@ public class CustomerFormController {
 
         var dto = new CustomerDto(id,name,address,tel);
 
-        /*try {
-            boolean isSaved = CustomerDaoImpl.saveCustomer(dto);
 
-            if(isSaved){
-                new Alert(Alert.AlertType.CONFIRMATION,"Customer Saved Successfully").showAndWait();
-                tblCustomer.refresh();
-            }
-        } catch (SQLException e) {
-            new Alert(Alert.AlertType.ERROR,"An Error Occured").showAndWait();
-        }*/
 
         try {
             boolean isSaved = customerBO.saveCustomer(dto);
@@ -231,27 +214,28 @@ public class CustomerFormController {
         txtTel.requestFocus();
     }
 
-  /*  public void customerSearchOnAction(ActionEvent event) {
+    public void customerSearchOnAction(ActionEvent event) {
         String id = txtId.getText();
-        String name = txtName.getText();
-        String address = txtAddress.getText();
-        String telNo = txtTel.getText();
+
 
         try {
-            CustomerDto dto = CustomerDaoImpl.searchCustomer(id);
+            Customer cusEntity = customerBO.searchCustomer(id);
 
-            if (dto != null) {
-                txtId.setText(dto.getId());
-                txtName.setText(dto.getName());
-                txtAddress.setText(dto.getAddress());
-                txtTel.setText(dto.getTel());
+            if (cusEntity != null) {
+                txtId.setText(cusEntity.getId());
+                txtName.setText(cusEntity.getName());
+                txtAddress.setText(cusEntity.getAddress());
+                txtTel.setText(cusEntity.getTel());
             } else {
                 new Alert(Alert.AlertType.INFORMATION,"Customer not found!!").show();
             }
         } catch (SQLException e) {
             new Alert(Alert.AlertType.INFORMATION, e.getMessage()).show();
-   }
-}
-*/
+   } catch (ClassNotFoundException e) {
+            new Alert(Alert.AlertType.INFORMATION, e.getMessage()).show();
+
+        }
+    }
+
 
 }

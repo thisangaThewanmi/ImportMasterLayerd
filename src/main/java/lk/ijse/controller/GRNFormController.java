@@ -11,6 +11,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
 import lk.ijse.bo.BOFactory;
+import lk.ijse.bo.StockBO;
 import lk.ijse.bo.SupplierBO;
 import lk.ijse.dto.*;
 import lk.ijse.dto.tm.GrnTM;
@@ -57,7 +58,7 @@ public class GRNFormController {
 
     private GRNModel GRNModel = new GRNModel();
 
-    private StockModel stockModel = new StockModel();
+  StockBO stockBO = (StockBO) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.STOCK);
 
 
 
@@ -74,7 +75,7 @@ public class GRNFormController {
     private void loadAllProducts() throws SQLException, ClassNotFoundException {
         ObservableList<String> obList = FXCollections.observableArrayList();
 
-        List<StockDto> idList = stockModel.getAllStocks();
+        List<StockDto> idList = stockBO.getAllStock();
 
         for (StockDto dto : idList) {
             obList.add(dto.getId());
@@ -139,11 +140,11 @@ public class GRNFormController {
     }
 */
 
-        public void cmdProductOnAction(ActionEvent actionEvent) {
+       /* public void cmdProductOnAction(ActionEvent actionEvent) {
             String id = (String) cmbProduct.getValue();
 //        CustomerModel customerModel = new CustomerModel();
             try {
-                StockDto stockDto = stockModel.searchStock(id);
+                StockDto stockDto = stockBO.searchStock();
                 txtName.setText(stockDto.getName());
 
 
@@ -153,7 +154,7 @@ public class GRNFormController {
             }
 
 
-    }
+    }*/
 
     public void txtQtyOnKeyReleaseAction(KeyEvent keyEvent) {
         Regex.setTextColor(TextFields.INTEGER, txtQty);

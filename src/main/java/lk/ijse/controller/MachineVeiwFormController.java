@@ -6,7 +6,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import lk.ijse.dto.MachineDto;
 import lk.ijse.dto.tm.MachineTM;
-import lk.ijse.dao.MachineModel;
+import lk.ijse.dao.MachineDaoImpl;
 
 
 import java.sql.SQLException;
@@ -27,7 +27,7 @@ public class MachineVeiwFormController {
     public TableColumn <MachineTM, Button>colAction;
     public Label lblMachine;
 
-    private  MachineModel machineModel = new MachineModel();
+    private MachineDaoImpl machineModel = new MachineDaoImpl();
 
     public void initialize() throws SQLException {
         setCellValues();
@@ -57,7 +57,7 @@ public class MachineVeiwFormController {
     public void setTableData() throws SQLException, ClassNotFoundException {
 
         List<MachineTM> list = new ArrayList<>();
-        List<MachineDto>allMachines = MachineModel.getAllMachines();
+        List<MachineDto>allMachines = MachineDaoImpl.getAllMachines();
 
         for (MachineDto allMachine : allMachines) {
             MachineTM machineTM = new MachineTM();
@@ -68,7 +68,7 @@ public class MachineVeiwFormController {
             Button button = new Button("Delete");
             button.setOnAction(e -> {
                 try {
-                    boolean isDeleted = MachineModel.deleteMachine(machineTM.getId());
+                    boolean isDeleted = MachineDaoImpl.deleteMachine(machineTM.getId());
 
                     if(isDeleted){
                         new Alert(Alert.AlertType.CONFIRMATION, "Machine deleted!").show();

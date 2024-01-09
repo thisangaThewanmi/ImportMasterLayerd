@@ -183,12 +183,20 @@ public class SupplierDaoImpl implements SupplierDao {
 
     @Override
     public Supplier search(String newValue) throws SQLException, ClassNotFoundException {
-        return null;
+        ResultSet rst = SQLUtil.execute("SELECT * FROM supplier WHERE sup_id=?");
+
+        Supplier supplier = null;
+        if (rst.next()) {
+            supplier = new Supplier(rst.getString("sup_id"), rst.getString("name"), rst.getString("address"), rst.getString("tel"));
+        }
+
+        return supplier;
     }
 
     @Override
     public char[] count() throws SQLException {
-        return new char[0];
+        return SQLUtil.execute("SELECT COUNT(m_id) FROM machine;");
+
     }
 }
 

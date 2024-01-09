@@ -4,9 +4,11 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import lk.ijse.bo.BOFactory;
+import lk.ijse.bo.StockBO;
 import lk.ijse.dto.StockDto;
 import lk.ijse.dto.tm.StockTM;
-import lk.ijse.dao.StockModel;
+import lk.ijse.dao.StockDaoImpl;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -24,7 +26,7 @@ public class StockVeiwFormController {
     public TableColumn<StockTM, Button> colOption;
     public Label lblStock;
 
-    private StockModel stockModel = new StockModel();
+    StockBO stockBO = (StockBO) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.STOCK);
 
 
     public void initialize() throws SQLException {
@@ -54,7 +56,7 @@ public class StockVeiwFormController {
     public void setTableData() throws SQLException, ClassNotFoundException {
 
         List<StockTM> list = new ArrayList<>();
-        List<StockDto>allStocks = StockModel.getAllStocks();
+        List<StockDto>allStocks = stockBO.getAllStock();
 
         for (StockDto allStock : allStocks) {
             StockTM stockTM = new StockTM();
@@ -65,12 +67,14 @@ public class StockVeiwFormController {
             Button button = new Button("Delete");
             button.setOnAction(e -> {
                 try {
-                    boolean isDeleted = StockModel.deleteStock(stockTM.getId());
+                    boolean isDeleted = stockBO.deleteStock(stockTM.getId());
 
                     if(isDeleted){
                         new Alert(Alert.AlertType.CONFIRMATION, "Stock deleted!").show();
                     }
                 } catch (SQLException ex) {
+                    new Alert(Alert.AlertType.ERROR, ex.getMessage()).show();
+                } catch (ClassNotFoundException ex) {
                     new Alert(Alert.AlertType.ERROR, ex.getMessage()).show();
                 }
             });

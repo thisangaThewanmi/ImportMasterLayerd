@@ -52,7 +52,7 @@ public class EngineerDaoImpl  implements EngineerDao{
 
     @Override
     public boolean exsit(String id) throws SQLException, ClassNotFoundException {
-        ResultSet set = SQLUtil.execute("SELECT id FROM customer WHERE id=?",
+        ResultSet set = SQLUtil.execute("SELECT id FROM engineer WHERE e_id=?",
                 id);
         return set.next();
     }
@@ -64,12 +64,21 @@ public class EngineerDaoImpl  implements EngineerDao{
 
     @Override
     public Engineer search(String newValue) throws SQLException, ClassNotFoundException {
-        return null;
+        ResultSet rst = SQLUtil.execute("SELECT * FROM engineer WHERE e_id = ?");
+
+
+        Engineer entity = null;
+        while (rst.next()) {
+            entity = new Engineer(rst.getString("id"), rst.getString("name"), rst.getString("address"), rst.getString("tel"));
+
+        }
+
+        return entity;
     }
 
     @Override
     public char[] count() throws SQLException {
-        return SQLUtil.execute("SELECT COUNT(id) FROM customer;");
+        return SQLUtil.execute("SELECT COUNT(e_id) FROM engineer;");
     }
 }
 

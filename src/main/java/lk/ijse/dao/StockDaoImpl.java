@@ -4,6 +4,8 @@ import lk.ijse.db.DbConnection;
 import lk.ijse.dto.*;
 import lk.ijse.dto.tm.GrnTM;
 import lk.ijse.dto.tm.StockTM;
+import lk.ijse.entity.Machine;
+import lk.ijse.entity.Stock;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -12,8 +14,79 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class StockModel {
-    public static boolean saveStock(StockDto dto) throws SQLException {
+public class StockDaoImpl implements StockDao {
+    @Override
+    public boolean save(Stock entity) throws SQLException {
+        return SQLUtil.execute("INSERT INTO stock (s_id,name, qty,unit_price) VALUES (?,?,?,?)",
+                entity.getId(),entity.getName(),entity.getQty(),entity.getPrice());
+    }
+
+    @Override
+    public boolean delete(String id) throws SQLException {
+       return SQLUtil.execute("DELETE FROM stock WHERE s_id=?",
+                id);
+    }
+
+    @Override
+    public boolean update(Stock entity) throws SQLException {
+        return SQLUtil.execute("UPDATE stock SET name=?, qty=? ,unit_price=? WHERE s_id=?",
+                entity.getName(),entity.getQty(),entity.getPrice(),entity.getId());
+    }
+
+    @Override
+    public ArrayList<Stock> getAll() throws SQLException {
+        ResultSet rst = SQLUtil.execute("SELECT * FROM stock");
+
+        ArrayList<Stock> getAllStock = new ArrayList<>();
+
+        while (rst.next()) {
+            Stock entity= new Stock(rst.getString("s_id"), rst.getString("name"), rst.getInt("qty"),rst.getDouble("unit_price"));
+            getAllStock.add(entity);
+        }
+
+        return getAllStock;
+    }
+
+
+    @Override
+    public boolean exsit(String id) throws SQLException, ClassNotFoundException {
+        ResultSet set = SQLUtil.execute("SELECT s_id FROM stock WHERE s_id=?",
+                id);
+        return set.next();
+    }
+
+    @Override
+    public String nextId() throws SQLException, ClassNotFoundException {
+        ResultSet rst = SQLUtil.execute("SELECT s_id FROM stock ORDER BY s_id DESC LIMIT 1;");
+        if (rst.next()) {
+            String id = rst.getString("s_id");
+            int newStockId = Integer.parseInt(id.replace("S00-", "")) + 1;
+            return String.format("00-%03d", newStockId);
+        } else {
+            return "S00-001";
+        }
+    }
+
+    @Override
+    public Stock search(String newValue) throws SQLException, ClassNotFoundException {
+        ResultSet rst = SQLUtil.execute("SELECT * FROM machine WHERE m_id = ?");
+
+
+       Stock entity = null;
+        while (rst.next()) {
+            entity = new Stock(rst.getString("id"), rst.getString("name"), rst.getInt("qty_"),rst.getDouble("unit_price"));
+
+        }
+
+        return entity;
+    }
+
+    @Override
+    public char[] count() throws SQLException {
+        return SQLUtil.execute("SELECT COUNT(m_id) FROM machine;");
+
+    }
+   /* public static boolean saveStock(StockDto dto) throws SQLException {
 
         Connection connection = DbConnection.getInstance().getConnection();
 
@@ -29,7 +102,7 @@ public class StockModel {
         return pstm.executeUpdate() > 0;
     }
 
-   /* public static boolean updateStock(List<grnTM> dto) throws SQLException {
+   *//* public static boolean updateStock(List<grnTM> dto) throws SQLException {
 
 
 
@@ -45,7 +118,7 @@ public class StockModel {
             return pstm.executeUpdate() > 0;
 
 
-    }*/
+    }*//*
 
     public static boolean deleteStock(String id) throws SQLException {
 
@@ -224,7 +297,9 @@ public class StockModel {
 
         return resultCharArray;
     }
-    }
+*/
+
+}
 
 
 

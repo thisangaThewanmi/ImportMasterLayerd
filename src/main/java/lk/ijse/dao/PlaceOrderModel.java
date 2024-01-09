@@ -28,7 +28,7 @@ public class PlaceOrderModel {
 
                 boolean isOrderSaved = OrderModel.saveOrder(orderId, machineId, engineerId, customerId ,date);
                 if (isOrderSaved) {
-                    boolean isUpdated = StockModel.updateQty2(placeOrderDto.getStockTMlist());
+                    boolean isUpdated = StockDaoImpl.updateQty2(placeOrderDto.getStockTMlist());
                     if (isUpdated) {
                         boolean isOrderDetailSaved = OrderDetailModel.saveOrderDetails(placeOrderDto.getOrderId(), placeOrderDto.getStockTMlist());
                         if (isOrderDetailSaved) {

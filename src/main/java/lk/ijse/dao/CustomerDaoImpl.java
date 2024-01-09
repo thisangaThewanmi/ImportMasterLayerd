@@ -172,7 +172,16 @@ public class CustomerDaoImpl implements CustomerDao {
 
     @Override
     public Customer search(String newValue) throws SQLException, ClassNotFoundException {
-        return null;
+        ResultSet rst = SQLUtil.execute("SELECT * FROM customer WHERE id = ?");
+
+
+        Customer entity = null;
+        while (rst.next()) {
+            entity = new Customer(rst.getString("id"), rst.getString("name"), rst.getString("address"), rst.getString("tel"));
+
+        }
+
+        return entity;
     }
 
     @Override

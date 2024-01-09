@@ -11,7 +11,6 @@ import javafx.scene.control.Label;
 import lk.ijse.bo.BOFactory;
 import lk.ijse.bo.CustomerBO;
 import lk.ijse.bo.EngineerBO;
-import lk.ijse.bo.EnginnerBOImpl;
 import lk.ijse.dto.*;
 import lk.ijse.dao.*;
 
@@ -35,7 +34,7 @@ public class NewMachineInstallationController {
     public JFXTextField txtPrice;
 
 
-    private MachineModel machineModel = new MachineModel();
+    private MachineDaoImpl machineModel = new MachineDaoImpl();
 
     EngineerBO engineerBO = (EngineerBO) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.ENGINNER);
   CustomerBO customerBO = (CustomerBO) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.CUSTOMER);
@@ -75,7 +74,7 @@ public class NewMachineInstallationController {
         String id = (String) cmbMachine.getValue();
 //        CustomerModel customerModel = new CustomerModel();
         try {
-            MachineDto machineDto = MachineModel.searchMachine(id);
+            MachineDto machineDto = MachineDaoImpl.searchMachine(id);
             lblMachineName.setText(machineDto.getName());
 
         } catch (SQLException e) {

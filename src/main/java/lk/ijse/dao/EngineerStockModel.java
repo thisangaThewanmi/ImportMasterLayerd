@@ -16,7 +16,7 @@ public class EngineerStockModel {
             if (isEngineerStockSaved){
                 boolean isALlSaved = EngineerStockDetailsModel.saveEngineerStockDetails(engineerStockDto.getDetailsList());
                 if (isALlSaved){
-                    boolean isALlUpdated = StockModel.updateQty(engineerStockDto.getDetailsList());
+                    boolean isALlUpdated = StockDaoImpl.updateQty(engineerStockDto.getDetailsList());
                     if (isALlUpdated){
                         connection.commit();
                         return true;

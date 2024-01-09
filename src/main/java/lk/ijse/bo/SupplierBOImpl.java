@@ -4,6 +4,7 @@ import lk.ijse.dao.DAOFactory;
 import lk.ijse.dao.SupplierDao;
 import lk.ijse.dto.EngineerDTO;
 import lk.ijse.dto.supDto;
+import lk.ijse.entity.Employee;
 import lk.ijse.entity.Engineer;
 import lk.ijse.entity.Supplier;
 
@@ -49,6 +50,16 @@ public class SupplierBOImpl implements SupplierBO {
     @Override
     public String nextSupplierId() throws SQLException, ClassNotFoundException {
         return supplierDao.nextId();
+    }
+
+    @Override
+    public char[] countSupplier() throws SQLException {
+        return supplierDao.count();
+    }
+
+    @Override
+    public Supplier searchSupplier(String id) throws SQLException, ClassNotFoundException {
+        return supplierDao.search(id);
     }
 }
 

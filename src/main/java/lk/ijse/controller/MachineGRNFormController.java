@@ -11,14 +11,14 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
 import lk.ijse.bo.BOFactory;
+import lk.ijse.bo.MachineBo;
 import lk.ijse.bo.SupplierBO;
 import lk.ijse.dto.MachineDto;
 import lk.ijse.dto.PlaceMrnDto;
 import lk.ijse.dto.supDto;
 import lk.ijse.dto.tm.MrnTM;
-import lk.ijse.dao.MachineModel;
+import lk.ijse.dao.MachineDaoImpl;
 import lk.ijse.dao.PlaceMRNModel;
-import lk.ijse.dao.SupplierDaoImpl;
 import lk.ijse.util.Regex;
 import lk.ijse.util.TextFields;
 
@@ -54,7 +54,8 @@ public class MachineGRNFormController {
 
     SupplierBO supplierBO = (SupplierBO) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.SUPPLIER);
 
-    private  MachineModel machineModel = new MachineModel();
+    MachineBo machineBo = (MachineBo) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.MACHINE);
+
 
     private ObservableList<MrnTM> oblist = FXCollections.observableArrayList();
 
@@ -69,7 +70,7 @@ public class MachineGRNFormController {
 
     private void generateNextMRId() {
         try {
-            String mrnId = machineModel.generateNextMRId();
+            String mrnId = MachineDao.generateNextMRId();
             txtId.setText(mrnId);
         } catch (SQLException e) {
             new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
@@ -113,7 +114,12 @@ public class MachineGRNFormController {
     private void loadAllMachines() throws SQLException {
         ObservableList<String> obList = FXCollections.observableArrayList();
 
-        List<MachineDto> idList = MachineModel.getAllMachines();
+        List<MachineDto> idList = null;
+        try {
+            idList = machineBo.getAllMachine();
+        } catch (ClassNotFoundException e) {
+            new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
+        }
 
         for (MachineDto dto : idList) {
             obList.add(dto.getId());
@@ -141,7 +147,7 @@ public class MachineGRNFormController {
         String id = (String) cmbMachine.getValue();
 //        CustomerModel customerModel = new CustomerModel();
         try {
-            MachineDto machineDto = machineModel. searchMachine(id);
+            MachineDto machineDto = machineBo.search();
             txtName.setText(machineDto.getName());
 
         } catch (SQLException e) {

@@ -8,6 +8,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import lk.ijse.bo.*;
 import lk.ijse.dao.*;
 
 import java.io.IOException;
@@ -27,15 +28,24 @@ public class DashBoardController {
     @FXML
     private Pane root;
 
-    private SupplierDaoImpl supplierModel = new SupplierDaoImpl();
+   /* private SupplierDaoImpl supplierModel = new SupplierDaoImpl();
 
     private CustomerDaoImpl customerModel = new CustomerDaoImpl();
 
-    private MachineModel machineModel = new MachineModel();
+    private MachineDaoImpl machineModel = new MachineDaoImpl();
 
-    private StockModel stockModel = new StockModel();
+    private StockDaoImpl stockModel = new StockDaoImpl();*/
 
     private OrderModel orderModel = new OrderModel();
+
+    SupplierBO supplierBO = (SupplierBO) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.SUPPLIER);
+
+    CustomerBO customerBO = (CustomerBO) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.CUSTOMER);
+
+    MachineBo machineBO = (MachineBo) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.MACHINE);
+
+    StockBO stockBO = (StockBO) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.STOCK); //StockBO
+
 
 
     public void initialize() throws SQLException {
@@ -53,9 +63,9 @@ public class DashBoardController {
         lblOrders.setText(String.valueOf(orderModel.countOrders()));
     }
 
-    private void setDataStock() throws SQLException {
-        lblStock.setText(String.valueOf(stockModel.countStock()));
-    }
+  /*  private void setDataStock() throws SQLException {
+        lblStock.setText(String.valueOf(stockBO.countStock()));
+    }*/
 
     /*private void setDataMachiens() throws SQLException {
         lblMachines.setText(String.valueOf(machineModel.countMachines()));

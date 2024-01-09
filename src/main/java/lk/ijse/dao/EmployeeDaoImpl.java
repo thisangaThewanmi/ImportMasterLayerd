@@ -1,6 +1,7 @@
 package lk.ijse.dao;
 
 
+import lk.ijse.entity.Customer;
 import lk.ijse.entity.Employee;
 
 
@@ -67,12 +68,21 @@ public class EmployeeDaoImpl implements EmployeeDao {
 
     @Override
     public Employee search(String newValue) throws SQLException, ClassNotFoundException {
-        return null;
+        ResultSet rst = SQLUtil.execute("SELECT * FROM employee WHERE emp_id = ?");
+
+
+        Employee entity = null;
+        while (rst.next()) {
+            entity = new Employee(rst.getString("id"), rst.getString("name"), rst.getString("address"), rst.getString("tel"));
+
+        }
+
+        return entity;
     }
 
     @Override
     public char[] count() throws SQLException {
-        return SQLUtil.execute("SELECT COUNT(id) FROM Customer;");
+        return SQLUtil.execute("SELECT COUNT(emp_id) FROM employee;");
     }
 }
 

@@ -57,7 +57,7 @@ public class PlaceOrderFormController {
 
     EngineerBO engineerBO = (EngineerBO) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.ENGINNER);
     CustomerBO customerBO = (CustomerBO) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.CUSTOMER);
-    private StockModel stockModel = new StockModel();
+    private StockDaoImpl stockModel = new StockDaoImpl();
     private OrderModel orderModel = new OrderModel();
 
     private ObservableList<StockTM> obList = FXCollections.observableArrayList();
@@ -101,7 +101,7 @@ public class PlaceOrderFormController {
     private void loadMachineIds() throws SQLException {
         ObservableList<String> obList = FXCollections.observableArrayList();
 
-        List<MachineDto> idList = MachineModel.getAllMachines();
+        List<MachineDto> idList = MachineDaoImpl.getAllMachines();
 
         for (MachineDto dto : idList) {
             obList.add(dto.getId());
@@ -332,7 +332,7 @@ public class PlaceOrderFormController {
         String id = (String) cmbMachine.getValue();
 //        CustomerModel customerModel = new CustomerModel();
         try {
-            MachineDto machineDto = MachineModel.searchMachine(id);
+            MachineDto machineDto = MachineDaoImpl.searchMachine(id);
             txtMachineName.setText(machineDto.getName());
 
         } catch (SQLException e) {

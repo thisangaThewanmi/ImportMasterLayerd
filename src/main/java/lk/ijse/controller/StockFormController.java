@@ -8,10 +8,15 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.control.Alert;
 import javafx.scene.input.KeyEvent;
+import lk.ijse.bo.BOFactory;
+import lk.ijse.bo.MachineBo;
+import lk.ijse.bo.StockBO;
+import lk.ijse.dto.EmployeeDto;
+import lk.ijse.dto.EngineerDTO;
 import lk.ijse.dto.MachineDto;
 import lk.ijse.dto.StockDto;
-import lk.ijse.dao.MachineModel;
-import lk.ijse.dao.StockModel;
+
+
 import lk.ijse.util.Regex;
 import lk.ijse.util.TextFields;
 
@@ -20,12 +25,16 @@ import java.sql.SQLException;
 
 public class StockFormController {
 
+    StockBO stockBO = (StockBO) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.STOCK);
+
     public JFXTextField txtId;
     public JFXTextField txtName;
     public JFXTextField txtQty;
     public JFXTextField txtUnitPrice;
     public JFXComboBox <String>cmbType;
     public javafx.scene.layout.Pane Pane;
+
+    MachineBo machineBo = (MachineBo) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.MACHINE);
 
 
     public void initialize() {
@@ -52,13 +61,16 @@ public class StockFormController {
             var dto = new StockDto(id,name,qty,price);
 
             try {
-                boolean isSaved =  StockModel.saveStock(dto);
+                boolean isSaved = stockBO.saveStock(dto);
 
                 if(isSaved){
                     new Alert(Alert.AlertType.CONFIRMATION,"stock sucessfully added").showAndWait();
                 }
             } catch (SQLException e) {
                 new Alert(Alert.AlertType.ERROR,"Error occued").showAndWait();
+            } catch (ClassNotFoundException e) {
+                new Alert(Alert.AlertType.ERROR,e.getMessage()).showAndWait();
+
             }
         }
 
@@ -66,7 +78,7 @@ public class StockFormController {
             var dto = new MachineDto(id,name,qty,price);
 
             try {
-                boolean isSaved = MachineModel.saveMachine(dto);
+                boolean isSaved = machineBo.saveMachine(dto);
 
                 if (isSaved) {
 
@@ -74,6 +86,8 @@ public class StockFormController {
                 }
 
             } catch (SQLException e) {
+                new Alert(Alert.AlertType.ERROR, e.getMessage()).showAndWait();
+            } catch (ClassNotFoundException e) {
                 new Alert(Alert.AlertType.ERROR, e.getMessage()).showAndWait();
             }
         }
@@ -99,18 +113,57 @@ public class StockFormController {
         int qty= Integer.parseInt(txtQty.getText());
         double  price = Double.parseDouble(txtUnitPrice.getText());
         String supplier = txtName.getText();
+        int type = cmbType.getSelectionModel().getSelectedIndex();
 
 
-        var dto = new StockDto(id,name,qty,price);
+        /*var dto = new StockDto(id,name,qty,price);
 
         try {
-            boolean isSaved =  StockModel.updateStock(dto);
+            boolean isSaved =  .updateStock(dto);
 
             if(isSaved){
                 new Alert(Alert.AlertType.CONFIRMATION,"stock sucessfully updated").showAndWait();
             }
         } catch (SQLException e) {
             new Alert(Alert.AlertType.ERROR,e.getMessage()).showAndWait();
+        }*/
+
+        if(type==-1){
+            new Alert(Alert.AlertType.ERROR,"Please Select Type").show();
+            return;
+        }
+
+        if(type==0){
+            var dto = new StockDto(id,name,qty,price);
+            try {
+                boolean isUpdated = stockBO.updateStock(dto);
+
+                if(isUpdated){
+                    new Alert(Alert.AlertType.CONFIRMATION,"Stock Updated Successfully").showAndWait();
+                }
+            } catch (SQLException e) {
+                new Alert(Alert.AlertType.ERROR, e.getMessage()).showAndWait();
+            } catch (ClassNotFoundException e) {
+                new Alert(Alert.AlertType.ERROR, e.getMessage()).showAndWait();
+            }
+        }
+
+        if(type==1) {
+            var dto = new MachineDto(id, name, qty, price);
+            try {
+                boolean isUpdated =machineBo.updateMachine(dto);
+
+                if (isUpdated) {
+                    new Alert(Alert.AlertType.CONFIRMATION, "Machine Updated Successfully").showAndWait();
+                }
+
+            } catch (SQLException e) {
+                new Alert(Alert.AlertType.ERROR, e.getMessage()).showAndWait();
+            } catch (ClassNotFoundException e) {
+                new Alert(Alert.AlertType.ERROR, e.getMessage()).showAndWait();
+
+            }
+
         }
     }
 
@@ -122,13 +175,15 @@ public class StockFormController {
 
 //        var model = new CustomerModel();
         try {
-            boolean isDeleted = StockModel.deleteStock(id);
+            boolean isDeleted = stockBO.deleteStock(id);
             if(isDeleted) {
                 new Alert(Alert.AlertType.CONFIRMATION, "Stock Removed!").show();
             } else {
                 new Alert(Alert.AlertType.ERROR, "stock not deleted!").show();
             }
         } catch (SQLException e) {
+            new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
+        } catch (ClassNotFoundException e) {
             new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
         }
     }

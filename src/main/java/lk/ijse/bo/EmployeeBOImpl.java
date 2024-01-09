@@ -50,6 +50,16 @@ public class EmployeeBOImpl implements EmployeeBO {
 
     @Override
     public String nextEmployeeId() throws SQLException, ClassNotFoundException {
-       return null;
+       return employeeDao.nextId();
+    }
+
+    @Override
+    public char[] countEmployee() throws SQLException {
+        return employeeDao.count();
+    }
+
+    @Override
+    public Employee searchEmployee(String id) throws SQLException, ClassNotFoundException {
+        return employeeDao.search(id);
     }
 }

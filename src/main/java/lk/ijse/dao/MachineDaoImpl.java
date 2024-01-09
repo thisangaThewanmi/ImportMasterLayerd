@@ -4,6 +4,9 @@ import lk.ijse.db.DbConnection;
 import lk.ijse.dto.MachineDto;
 import lk.ijse.dto.MachineInstallDto;
 import lk.ijse.dto.tm.MrnTM;
+import lk.ijse.entity.Customer;
+import lk.ijse.entity.Employee;
+import lk.ijse.entity.Machine;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -12,9 +15,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MachineModel {
+public class MachineDaoImpl implements MachineDao {
 
-    public static boolean saveMachine(MachineDto dto) throws SQLException {
+   /* public static boolean saveMachine(MachineDto dto) throws SQLException {
 
         Connection connection = DbConnection.getInstance().getConnection();
 
@@ -173,7 +176,97 @@ public class MachineModel {
         char[] resultCharArray = String.valueOf(machineCount).toCharArray();
 
         return resultCharArray;
+    }*/
+
+    @Override
+    public boolean save(Machine entity) throws SQLException {
+        return SQLUtil.execute("INSERT INTO machine (m_id,name, qty_,unit_price) VALUES (?,?,?,?)",
+                entity.getId(),entity.getName(),entity.getQty(),entity.getPrice());
     }
+
+    @Override
+    public boolean delete(String id) throws SQLException {
+        return SQLUtil.execute("DELETE FROM machine WHERE m_id=?",
+                id);
     }
+
+    @Override
+    public boolean update(Machine entity) throws SQLException {
+        return SQLUtil.execute("UPDATE machine SET name=?, qty_=? ,unit_price=? WHERE m_id=?",
+                entity.getName(),entity.getQty(),entity.getPrice(),entity.getId());
+    }
+
+    @Override
+    public ArrayList<Machine> getAll() throws SQLException {
+        ResultSet rst = SQLUtil.execute("SELECT * FROM machine");
+
+        ArrayList<Machine> getAllMachine = new ArrayList<>();
+
+        while (rst.next()) {
+            Machine entity = new Machine(rst.getString("m_id"), rst.getString("name"), rst.getInt("qty_"),rst.getDouble("unit_price"));
+            getAllMachine.add(entity);
+        }
+
+        return getAllMachine;
+    }
+
+    @Override
+    public boolean exsit(String id) throws SQLException, ClassNotFoundException {
+        ResultSet set = SQLUtil.execute("SELECT m_id FROM machine WHERE m_id=?",
+                id);
+        return set.next();
+    }
+
+    @Override
+    public String nextId() throws SQLException, ClassNotFoundException {
+        ResultSet rst = SQLUtil.execute("SELECT m_id FROM machine ORDER BY m_id DESC LIMIT 1;");
+        if (rst.next()) {
+            String id = rst.getString("m_id");
+            int newCustomerId = Integer.parseInt(id.replace("M00-", "")) + 1;
+            return String.format("M00-%03d", newCustomerId);
+        } else {
+            return "M00-001";
+        }
+    }
+
+    @Override
+    public Machine search(String newValue) throws SQLException, ClassNotFoundException {
+        ResultSet rst = SQLUtil.execute("SELECT * FROM machine WHERE m_id = ?");
+
+
+        Machine entity = null;
+        while (rst.next()) {
+            entity = new Machine(rst.getString("id"), rst.getString("name"), rst.getInt("qty_"),rst.getDouble("unit_price"));
+
+        }
+
+        return entity;
+    }
+
+    @Override
+    public char[] count() throws SQLException {
+        return SQLUtil.execute("SELECT COUNT(id) FROM e;");
+    }
+
+    //extra ones
+
+   /* public static boolean updateQty2(List<MrnTM> list) throws SQLException {
+        for (MrnTM ob : list) {
+            if (!updateQty2(ob)){
+                return false;
+            }
+        }
+        return true;
+    }*/
+
+   /* private static boolean updateQty2(MrnTM ob) throws SQLException {
+        Connection connection = DbConnection.getInstance().getConnection();
+        String sql = "UPDATE machine SET qty_ = qty_ + ? WHERE m_id = ?";
+        PreparedStatement pstm = connection.prepareStatement(sql);
+        pstm.setInt(1, ob.getQty());
+        pstm.setString(2, ob.getMachineId());
+        return pstm.executeUpdate() > 0;*/
+    }
+
 
 

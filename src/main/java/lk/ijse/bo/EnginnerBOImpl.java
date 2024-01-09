@@ -5,6 +5,7 @@ import lk.ijse.dao.EngineerDao;
 import lk.ijse.dao.EngineerDaoImpl;
 import lk.ijse.dao.SQLUtil;
 import lk.ijse.dto.EngineerDTO;
+import lk.ijse.entity.Employee;
 import lk.ijse.entity.Engineer;
 
 import java.sql.SQLException;
@@ -52,5 +53,15 @@ public class EnginnerBOImpl implements EngineerBO {
     @Override
     public String nextEngineerId() throws SQLException, ClassNotFoundException {
         return engineerDao.nextId();
+    }
+
+    @Override
+    public char[] countEngineer() throws SQLException {
+        return engineerDao.count();
+    }
+
+    @Override
+    public Engineer searchEngineer(String id) throws SQLException, ClassNotFoundException {
+       return engineerDao.search(id);
     }
 }

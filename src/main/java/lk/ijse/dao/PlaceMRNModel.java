@@ -32,7 +32,7 @@ public class PlaceMRNModel {
 
             boolean isGrnOrderSaved = MrnModel.saveMRN(mrnId, date, supId,total);
             if (isGrnOrderSaved) {
-                boolean isUpdated = MachineModel.updateQty2(placeMrnDto.getMachineGrnTMS());
+                boolean isUpdated = MachineDaoImpl.updateQty2(placeMrnDto.getMachineGrnTMS());
                 if (isUpdated) {
                     boolean isMrnOrderDetailSaved = MrnDetailModel.saveMrnDetails(placeMrnDto.getMRNId(), placeMrnDto.getMachineGrnTMS());
                     if (isMrnOrderDetailSaved) {

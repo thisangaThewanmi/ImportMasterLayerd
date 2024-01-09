@@ -32,7 +32,7 @@ public class PlaceGRNModel {
 
             boolean isGrnOrderSaved = GRNModel.saveOrder(grnId, date, supId, supName ,total);
             if (isGrnOrderSaved) {
-                boolean isUpdated = StockModel.updateQty3(placeGRNdto.getGrnTmList());
+                boolean isUpdated = StockDaoImpl.updateQty3(placeGRNdto.getGrnTmList());
                 if (isUpdated) {
                     boolean isGrnOrderDetailSaved = GRNDetailModel.saveGrnOrderDetails(placeGRNdto.getGrnId(), placeGRNdto.getGrnTmList());
                     if (isGrnOrderDetailSaved) {

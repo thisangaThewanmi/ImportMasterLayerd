@@ -30,7 +30,7 @@ public class PlaceMachineInstallionModel {
 
             boolean isOrderSaved = MachineInstallationModel.saveInstallation(MIid, machineId, engineerId, customerId, date, price);
             if (isOrderSaved) {
-                boolean isUpdated = MachineModel.updateMachineQty(machineInstallDto);
+                boolean isUpdated = MachineDaoImpl.updateMachineQty(machineInstallDto);
                 if (isUpdated) {
                     new Alert(Alert.AlertType.CONFIRMATION, "Machine Installation is Successful").show();
                         connection.commit();
