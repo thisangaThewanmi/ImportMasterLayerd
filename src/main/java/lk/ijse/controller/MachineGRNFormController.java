@@ -17,8 +17,8 @@ import lk.ijse.dto.MachineDto;
 import lk.ijse.dto.PlaceMrnDto;
 import lk.ijse.dto.supDto;
 import lk.ijse.dto.tm.MrnTM;
-import lk.ijse.dao.MachineDaoImpl;
 import lk.ijse.dao.PlaceMRNModel;
+import lk.ijse.entity.Machine;
 import lk.ijse.util.Regex;
 import lk.ijse.util.TextFields;
 
@@ -70,9 +70,11 @@ public class MachineGRNFormController {
 
     private void generateNextMRId() {
         try {
-            String mrnId = MachineDao.generateNextMRId();
+            String mrnId = machineBo.nextMachineId();
             txtId.setText(mrnId);
         } catch (SQLException e) {
+            new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
+        } catch (ClassNotFoundException e) {
             new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
         }
     }
@@ -147,11 +149,13 @@ public class MachineGRNFormController {
         String id = (String) cmbMachine.getValue();
 //        CustomerModel customerModel = new CustomerModel();
         try {
-            MachineDto machineDto = machineBo.search();
-            txtName.setText(machineDto.getName());
+           Machine machine = machineBo.searchMachine(id);
+            txtName.setText(machine.getName());
 
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
+        } catch (ClassNotFoundException e) {
+            new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
         }
 
     }

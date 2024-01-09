@@ -4,6 +4,8 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import lk.ijse.bo.BOFactory;
+import lk.ijse.bo.MachineBo;
 import lk.ijse.dto.MachineDto;
 import lk.ijse.dto.tm.MachineTM;
 import lk.ijse.dao.MachineDaoImpl;
@@ -27,7 +29,7 @@ public class MachineVeiwFormController {
     public TableColumn <MachineTM, Button>colAction;
     public Label lblMachine;
 
-    private MachineDaoImpl machineModel = new MachineDaoImpl();
+    MachineBo machineBo = (MachineBo) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.MACHINE);
 
     public void initialize() throws SQLException {
         setCellValues();
@@ -42,7 +44,7 @@ public class MachineVeiwFormController {
     }
 
     private void setMachineCount() throws SQLException {
-        lblMachine.setText(String.valueOf(machineModel.countMachines()));
+        lblMachine.setText(String.valueOf(machineBo.countMachine()));
     }
 
 
@@ -57,7 +59,7 @@ public class MachineVeiwFormController {
     public void setTableData() throws SQLException, ClassNotFoundException {
 
         List<MachineTM> list = new ArrayList<>();
-        List<MachineDto>allMachines = MachineDaoImpl.getAllMachines();
+        List<MachineDto>allMachines = machineBo.getAllMachine();
 
         for (MachineDto allMachine : allMachines) {
             MachineTM machineTM = new MachineTM();
@@ -68,14 +70,15 @@ public class MachineVeiwFormController {
             Button button = new Button("Delete");
             button.setOnAction(e -> {
                 try {
-                    boolean isDeleted = MachineDaoImpl.deleteMachine(machineTM.getId());
+                    boolean isDeleted = machineBo.deleteMachine(machineTM.getId());
 
                     if(isDeleted){
                         new Alert(Alert.AlertType.CONFIRMATION, "Machine deleted!").show();
                     }
                 } catch (SQLException ex) {
                     new Alert(Alert.AlertType.ERROR, ex.getMessage()).show();
-                }
+                } catch (ClassNotFoundException ex) {
+                    new Alert(Alert.AlertType.ERROR, ex.getMessage()).show();                }
             });
             button.getStyleClass().add("delete-button");
             machineTM.setOption(button);

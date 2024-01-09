@@ -11,8 +11,10 @@ import javafx.scene.control.Label;
 import lk.ijse.bo.BOFactory;
 import lk.ijse.bo.CustomerBO;
 import lk.ijse.bo.EngineerBO;
+import lk.ijse.bo.MachineBo;
 import lk.ijse.dto.*;
 import lk.ijse.dao.*;
+import lk.ijse.entity.Machine;
 
 import java.sql.SQLException;
 import java.time.LocalDate;
@@ -34,7 +36,7 @@ public class NewMachineInstallationController {
     public JFXTextField txtPrice;
 
 
-    private MachineDaoImpl machineModel = new MachineDaoImpl();
+    MachineBo machineBo = (MachineBo) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.MACHINE);
 
     EngineerBO engineerBO = (EngineerBO) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.ENGINNER);
   CustomerBO customerBO = (CustomerBO) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.CUSTOMER);
@@ -74,11 +76,13 @@ public class NewMachineInstallationController {
         String id = (String) cmbMachine.getValue();
 //        CustomerModel customerModel = new CustomerModel();
         try {
-            MachineDto machineDto = MachineDaoImpl.searchMachine(id);
-            lblMachineName.setText(machineDto.getName());
+            Machine machine = machineBo.searchMachine(id);
+            lblMachineName.setText(machine.getName());
 
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
+        } catch (ClassNotFoundException e) {
+            new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
         }
     }
 
@@ -132,7 +136,7 @@ public class NewMachineInstallationController {
         ObservableList<String> obList = FXCollections.observableArrayList();
 
         try {
-            List<MachineDto> idList = machineModel.getAllMachines();
+            List<MachineDto> idList =machineBo.getAllMachine();
 
             for (MachineDto dto : idList) {
                 obList.add(dto.getId());
@@ -140,7 +144,9 @@ public class NewMachineInstallationController {
 
             cmbMachine.setItems(obList);
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            new Alert(Alert.AlertType.ERROR,e.getMessage()).show();
+        } catch (ClassNotFoundException e) {
+            new Alert(Alert.AlertType.ERROR,e.getMessage()).show();
         }
     }
 

@@ -42,7 +42,7 @@ public class StockVeiwFormController {
     }
 
     private void setDataStock() throws SQLException {
-        lblStock.setText(String.valueOf(stockModel.countStock()));
+        lblStock.setText(String.valueOf(stockBO.countStock()));
     }
 
     public void setCellValues(){
