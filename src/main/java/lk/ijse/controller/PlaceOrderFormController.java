@@ -60,7 +60,7 @@ public class PlaceOrderFormController {
     StockBO stockBO = (StockBO) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.STOCK);
     
      MachineBo machineBo = (MachineBo) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.MACHINE); //MachineBo
-    private OrderModel orderModel = new OrderModel();
+    private OrderDAOImpl orderModel = new OrderDAOImpl();
 
     private ObservableList<StockTM> obList = FXCollections.observableArrayList();
 
@@ -131,7 +131,7 @@ public class PlaceOrderFormController {
 
     private void generateNextOrderId() {
         try {
-            String orderId = OrderModel.generateNextOrderId();
+            String orderId = OrderDAOImpl.generateNextOrderId();
             txtOrderId.setText(orderId);
         } catch (SQLException e) {
             new Alert(Alert.AlertType.ERROR, e.getMessage()).show();

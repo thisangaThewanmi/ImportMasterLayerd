@@ -1,12 +1,14 @@
 package lk.ijse.dao;
 
 import lk.ijse.db.DbConnection;
+import lk.ijse.entity.Order;
 
 import java.sql.*;
 import java.time.LocalDate;
+import java.util.ArrayList;
 
-public class OrderModel {
-    public static String generateNextOrderId() throws SQLException {
+public class OrderDAOImpl implements OrderDao {
+   /* public static String generateNextOrderId() throws SQLException {
         Connection connection = DbConnection.getInstance().getConnection();
 
         String sql = "SELECT orderId FROM orders ORDER BY orderId DESC LIMIT 1";
@@ -69,6 +71,59 @@ public class OrderModel {
         char[] resultCharArray = String.valueOf(OrderCount).toCharArray();
 
         return resultCharArray;
+    }*/
+
+    @Override
+    public boolean save(Order dto) throws SQLException {
+        return false;
     }
 
+    @Override
+    public boolean delete(String id) throws SQLException {
+        return false;
+    }
+
+    @Override
+    public boolean update(Order dto) throws SQLException {
+        return false;
+    }
+
+    @Override
+    public ArrayList<Order> getAll() throws SQLException {
+        return null;
+    }
+
+    @Override
+    public boolean exsit(String id) throws SQLException, ClassNotFoundException {
+        return false;
+    }
+
+    @Override
+    public String nextId() throws SQLException, ClassNotFoundException {
+        ResultSet rst = SQLUtil.execute("SELECT id FROM orders ORDER BY id DESC LIMIT 1;");
+        if (rst.next()) {
+            String id = rst.getString("id");
+            int newCustomerId = Integer.parseInt(id.replace("C00-", "")) + 1;
+            return String.format("C00-%03d", newCustomerId);
+        } else {
+            return "C00-001";
+        }
+    }
+
+    @Override
+    public Order search(String id) throws SQLException, ClassNotFoundException {
+        return null;
+    }
+
+    @Override
+    public char[] count() throws SQLException {
+        return new char[0];
+    }
+
+    @Override
+    public boolean save(String orderId, String MachineId, String engineerId, LocalDate orderDate, String customerId) throws SQLException, ClassNotFoundException {
+
+        return SQLUtil.execute("INSERT INTO `Orders` (orderId, machineId, engineerId,date, customerID) VALUES (?,?,?)",
+                orderId, MachineId, engineerId, orderDate, customerId);
+    }
 }

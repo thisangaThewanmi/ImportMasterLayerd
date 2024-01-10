@@ -36,7 +36,7 @@ public class DashBoardController {
 
     private StockDaoImpl stockModel = new StockDaoImpl();*/
 
-    private OrderModel orderModel = new OrderModel();
+    private OrderDAOImpl orderModel = new OrderDAOImpl();
 
     SupplierBO supplierBO = (SupplierBO) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.SUPPLIER);
 

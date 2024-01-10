@@ -26,7 +26,7 @@ public class PlaceOrderModel {
                 connection = DbConnection.getInstance().getConnection();
                 connection.setAutoCommit(false);
 
-                boolean isOrderSaved = OrderModel.saveOrder(orderId, machineId, engineerId, customerId ,date);
+                boolean isOrderSaved = OrderDAOImpl.saveOrder(orderId, machineId, engineerId, customerId ,date);
                 if (isOrderSaved) {
                     boolean isUpdated = StockDaoImpl.updateQty2(placeOrderDto.getStockTMlist());
                     if (isUpdated) {
