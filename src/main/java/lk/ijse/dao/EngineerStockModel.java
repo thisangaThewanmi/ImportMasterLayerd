@@ -1,5 +1,6 @@
 package lk.ijse.dao;
 
+import lk.ijse.dao.custom.Impl.StockDaoImpl;
 import lk.ijse.db.DbConnection;
 import lk.ijse.dto.EngineerStockDto;
 
@@ -8,6 +9,8 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 public class EngineerStockModel {
+
+    StockDaoImpl stockDao = new StockDaoImpl();
     public static boolean issueStock(EngineerStockDto engineerStockDto) throws SQLException, ClassNotFoundException {
         Connection connection = DbConnection.getInstance().getConnection();
         connection.setAutoCommit(false);

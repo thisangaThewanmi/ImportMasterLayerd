@@ -12,13 +12,9 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import lk.ijse.bo.BOFactory;
 import lk.ijse.bo.EmployeeBO;
-import lk.ijse.bo.EmployeeBOImpl;
 import lk.ijse.bo.EngineerBO;
-import lk.ijse.dao.DAOFactory;
 import lk.ijse.dto.EmployeeDto;
 import lk.ijse.dto.EngineerDTO;
-import lk.ijse.dao.EngineerDaoImpl;
-import lk.ijse.entity.Engineer;
 import lk.ijse.util.Regex;
 import lk.ijse.util.TextFields;
 

@@ -1,6 +1,7 @@
-package lk.ijse.dao;
+package lk.ijse.dao.custom.Impl;
 
-import lk.ijse.db.DbConnection;
+import lk.ijse.dao.SQLUtil;
+import lk.ijse.dao.custom.OrderDao;
 import lk.ijse.entity.Order;
 
 import java.sql.*;
@@ -117,7 +118,7 @@ public class OrderDAOImpl implements OrderDao {
 
     @Override
     public char[] count() throws SQLException {
-        return new char[0];
+        return SQLUtil.execute("SELECT COUNT(*) AS order_count FROM orders;");
     }
 
     @Override

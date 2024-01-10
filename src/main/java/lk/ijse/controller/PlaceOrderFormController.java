@@ -11,9 +11,12 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
 import lk.ijse.bo.*;
+import lk.ijse.dao.custom.Impl.OrderDAOImpl;
+
 import lk.ijse.dto.*;
 import lk.ijse.dto.tm.StockTM;
-import lk.ijse.dao.*;
+import lk.ijse.entity.Customer;
+import lk.ijse.entity.Engineer;
 import lk.ijse.entity.Machine;
 import lk.ijse.entity.Stock;
 
@@ -55,12 +58,8 @@ public class PlaceOrderFormController {
     public Label lblDate;
 
 
-    EngineerBO engineerBO = (EngineerBO) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.ENGINNER);
-    CustomerBO customerBO = (CustomerBO) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.CUSTOMER);
-    StockBO stockBO = (StockBO) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.STOCK);
-    
-     MachineBo machineBo = (MachineBo) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.MACHINE); //MachineBo
-    private OrderDAOImpl orderModel = new OrderDAOImpl();
+    PlaceOrderBO placeOrderBO = (PlaceOrderBO) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.PLACEORDER);
+
 
     private ObservableList<StockTM> obList = FXCollections.observableArrayList();
 
@@ -74,17 +73,14 @@ public class PlaceOrderFormController {
         loadItemCodes();
     }
 
-    private void loadEngineerIds()  {
+    private void loadEngineerIds() {
         ObservableList<String> obList = FXCollections.observableArrayList();
 
         List<EngineerDTO> idList = null;
         try {
-            idList = engineerBO.getAllEngineers();
+            idList = placeOrderBO.getAllEngineers();
         } catch (SQLException e) {
-             new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
-        } catch (ClassNotFoundException e) {
             new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
-
         }
 
         for (EngineerDTO dto : idList) {
@@ -99,16 +95,11 @@ public class PlaceOrderFormController {
     }
 
 
-
     private void loadMachineIds() throws SQLException {
         ObservableList<String> obList = FXCollections.observableArrayList();
 
         List<MachineDto> idList = null;
-        try {
-            machineBo.getAllMachine();
-        } catch (ClassNotFoundException e) {
-            new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
-        }
+        placeOrderBO.getAllMachine();
 
         for (MachineDto dto : idList) {
             obList.add(dto.getId());
@@ -117,7 +108,6 @@ public class PlaceOrderFormController {
 
         cmbMachine.setItems(obList);
     }
-
 
 
     private void setCellValueFactory() {
@@ -131,7 +121,12 @@ public class PlaceOrderFormController {
 
     private void generateNextOrderId() {
         try {
-            String orderId = OrderDAOImpl.generateNextOrderId();
+            String orderId = null;
+            try {
+                orderId = placeOrderBO.generateNewOrderId();
+            } catch (ClassNotFoundException e) {
+                new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
+            }
             txtOrderId.setText(orderId);
         } catch (SQLException e) {
             new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
@@ -141,7 +136,7 @@ public class PlaceOrderFormController {
     private void loadItemCodes() throws SQLException, ClassNotFoundException {
         ObservableList<String> obList = FXCollections.observableArrayList();
 
-        List<StockDto> idList = stockBO.getAllStock();
+        List<StockDto> idList = placeOrderBO.getAllStock();
 
         for (StockDto dto : idList) {
             obList.add(dto.getId());
@@ -153,38 +148,18 @@ public class PlaceOrderFormController {
 
     }
 
-    // loadItems wala engineer_stock walin ena eka
-
-       /* ObservableList<String> obList = FXCollections.observableArrayList();
-        String selectedEngineer = (String) cmbEngineer.getSelectionModel().getSelectedItem();
-        System.out.println(selectedEngineer);
-
-
-            List<OrderStockDto> stockDtos = stockModel.getEngineerStock(selectedEngineer);
-
-            System.out.println("Engineer Id: " + selectedEngineer);
-            System.out.println("stockDtos" + stockDtos);
-
-            for (OrderStockDto dto : stockDtos) {
-                obList.add(dto.getStockId());
-
-
-            }
-            cmbProduct.setItems(obList);
-
-        }*/
-
 
     private void setDate() {
 //        LocalDate now = LocalDate.now();
         lblDate.setText(String.valueOf(LocalDate.now()));
     }
 
-    /*private void loadCustomerIds() {
+     void loadCustomerIds() {
         ObservableList<String> obList = FXCollections.observableArrayList();
 
         try {
-            List<CustomerDto> idList = .getAllCustomers();
+            List<CustomerDto> idList = null;
+            idList = placeOrderBO.getAllCustomers();
 
             for (CustomerDto dto : idList) {
                 obList.add(dto.getId());
@@ -195,35 +170,35 @@ public class PlaceOrderFormController {
             throw new RuntimeException(e);
         }
     }
-*/
-   /* public void cmbEngOnAction(ActionEvent actionEvent) {
+
+    public void cmbEngOnAction(ActionEvent actionEvent) {
         String id = (String) cmbEngineer.getValue();
 //        CustomerModel customerModel = new CustomerModel();
         try {
-           EngineerDTO engineerDto = engineerBO.searchEngineer(id);
-            txtEngName.setText(engineerDto.getName());
+            Engineer engineer = placeOrderBO.searchEngineer(id);
+            txtEngName.setText(engineer.getName());
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
-        }*/
+        } catch (ClassNotFoundException e) {
+            new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
+        }
 
-   // }
-
-
+    }
 
 
     public void cmbProductOnAction(ActionEvent actionEvent) {
         String id = (String) cmbProduct.getValue();
 //        CustomerModel customerModel = new CustomerModel();
         try {
-            Stock stock = stockBO.searchStock(id);
+            Stock stock = placeOrderBO.searchStock(id);
             txtDesc.setText(stock.getName());
             txtQtyOnHand.setText(String.valueOf(stock.getQty()));
             txtPrice.setText(String.valueOf(stock.getPrice()));
 
 
         } catch (SQLException e) {
-             new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
+            new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
         } catch (ClassNotFoundException e) {
             new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
         }
@@ -295,42 +270,35 @@ public class PlaceOrderFormController {
     }
 
 
-   public void btnSaveOnAction(ActionEvent actionEvent) {
+    public void btnSaveOnAction(ActionEvent actionEvent) {
 
-           String orderId = txtOrderId.getText();
-           LocalDate date = LocalDate.parse(lblDate.getText());
-
-
+        String orderId = txtOrderId.getText();
+        LocalDate date = LocalDate.parse(lblDate.getText());
 
 
-           String customerId = (String) cmbCustomer.getSelectionModel().getSelectedItem();
-           String engineerId = (String) cmbEngineer.getSelectionModel().getSelectedItem();
-           String machineId = (String) cmbMachine.getSelectionModel().getSelectedItem();
-           String engineerName = txtEngName.getText();
-           String machineName = txtMachineName.getText();
-           String customerName = txtCustomerName.getText();
+        String customerId = (String) cmbCustomer.getSelectionModel().getSelectedItem();
+        String engineerId = (String) cmbEngineer.getSelectionModel().getSelectedItem();
+        String machineId = (String) cmbMachine.getSelectionModel().getSelectedItem();
+        String engineerName = txtEngName.getText();
+        String machineName = txtMachineName.getText();
+        String customerName = txtCustomerName.getText();
 
 
+        List<StockTM> stockTmList = new ArrayList<>();
+        for (int i = 0; i < tblCart.getItems().size(); i++) {
+            StockTM stockTM = obList.get(i);
 
-            List<StockTM> stockTmList = new ArrayList<>();
-            for (int i = 0; i < tblCart.getItems().size(); i++) {
-                StockTM stockTM = obList.get(i);
-
-                stockTmList.add(stockTM);
-            }
-
-            System.out.println("Place order form controller: " + stockTmList);
-            var placeOrderDto = new PlaceOrderDto(orderId, date, customerId,customerName,engineerId, engineerName, machineId, machineName,  stockTmList);
-            try {
-                boolean isSuccess = PlaceOrderModel.placeOrder(placeOrderDto);
-                if (isSuccess) {
-                    new Alert(Alert.AlertType.CONFIRMATION, "Order Success!").show();
-                }
-
-            } catch (SQLException e) {
-                new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
-            }
+            stockTmList.add(stockTM);
         }
+
+        System.out.println("Place order form controller: " + stockTmList);
+        var placeOrderDto = new PlaceOrderDto(orderId, date, customerId, customerName, engineerId, engineerName, machineId, machineName, stockTmList);
+        boolean isSuccess = placeOrderBO.placeOrder(placeOrderDto);
+        if (isSuccess) {
+            new Alert(Alert.AlertType.CONFIRMATION, "Order Success!").show();
+        }
+
+    }
 
 
     public void txtQtyOnKeyReleaseAction(KeyEvent keyEvent) {
@@ -340,7 +308,7 @@ public class PlaceOrderFormController {
         String id = (String) cmbMachine.getValue();
 //        CustomerModel customerModel = new CustomerModel();
         try {
-            Machine machine = machineBo.searchMachine(id);
+            Machine machine = placeOrderBO.searchMachine(id);
             txtMachineName.setText(machine.getName());
 
         } catch (SQLException e) {
@@ -352,17 +320,18 @@ public class PlaceOrderFormController {
     }
 
 
-    /*public void cmbCustomerOnAction(ActionEvent actionEvent) {
+    public void cmbCustomerOnAction(ActionEvent actionEvent) {
         String id = (String) cmbCustomer.getValue();
 //        CustomerModel customerModel = new CustomerModel();
+        Customer customer = null;
         try {
-            CustomerDto customerDto = CustomerDaoImpl.searchCustomer(id);
-            txtCustomerName.setText(customerDto.getName());
-
+            customer = placeOrderBO.searchCustomer(id);
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
+        } catch (ClassNotFoundException e) {
+            new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
         }
+        txtCustomerName.setText(customer.getName());
 
-    }*/
-    
+    }
 }

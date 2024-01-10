@@ -1,6 +1,8 @@
-package lk.ijse.dao;
+package lk.ijse.dao.custom.Impl;
 
 
+import lk.ijse.dao.EmployeeDao;
+import lk.ijse.dao.SQLUtil;
 import lk.ijse.entity.Customer;
 import lk.ijse.entity.Employee;
 

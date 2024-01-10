@@ -8,7 +8,6 @@ import lk.ijse.bo.BOFactory;
 import lk.ijse.bo.StockBO;
 import lk.ijse.dto.StockDto;
 import lk.ijse.dto.tm.StockTM;
-import lk.ijse.dao.StockDaoImpl;
 
 import java.sql.SQLException;
 import java.util.ArrayList;

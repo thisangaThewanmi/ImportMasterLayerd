@@ -1,11 +1,13 @@
-package lk.ijse.dao;
+package lk.ijse.dao.custom;
 
+
+import lk.ijse.dao.SuperDao;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public interface CrudDao<T> extends  SuperDao {
+public interface CrudDao<T> extends SuperDao {
 
           boolean save(T dto) throws SQLException;
 

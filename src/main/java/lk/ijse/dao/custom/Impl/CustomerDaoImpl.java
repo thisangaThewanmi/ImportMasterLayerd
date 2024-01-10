@@ -1,5 +1,7 @@
-package lk.ijse.dao;
+package lk.ijse.dao.custom.Impl;
 
+import lk.ijse.dao.CustomerDao;
+import lk.ijse.dao.SQLUtil;
 import lk.ijse.db.DbConnection;
 import lk.ijse.dto.CustomerDto;
 import lk.ijse.entity.Customer;

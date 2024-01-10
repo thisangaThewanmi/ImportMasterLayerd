@@ -2,10 +2,7 @@ package lk.ijse.bo;
 
 import lk.ijse.dao.DAOFactory;
 import lk.ijse.dao.EngineerDao;
-import lk.ijse.dao.EngineerDaoImpl;
-import lk.ijse.dao.SQLUtil;
 import lk.ijse.dto.EngineerDTO;
-import lk.ijse.entity.Employee;
 import lk.ijse.entity.Engineer;
 
 import java.sql.SQLException;

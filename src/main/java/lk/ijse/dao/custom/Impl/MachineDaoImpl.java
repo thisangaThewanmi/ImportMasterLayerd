@@ -1,5 +1,7 @@
-package lk.ijse.dao;
+package lk.ijse.dao.custom.Impl;
 
+import lk.ijse.dao.MachineDao;
+import lk.ijse.dao.SQLUtil;
 import lk.ijse.db.DbConnection;
 import lk.ijse.dto.MachineDto;
 import lk.ijse.dto.MachineInstallDto;
@@ -16,6 +18,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MachineDaoImpl implements MachineDao {
+    public static boolean updateMachineQty(MachineInstallDto machineInstallDto) {
+        return false;
+    }
+
+
+    public static boolean updateQty2(List<MrnTM> machineGrnTMS) {
+
+        return false;
+    }
 
    /* public static boolean saveMachine(MachineDto dto) throws SQLException {
 

@@ -8,7 +8,6 @@ import lk.ijse.bo.BOFactory;
 import lk.ijse.bo.MachineBo;
 import lk.ijse.dto.MachineDto;
 import lk.ijse.dto.tm.MachineTM;
-import lk.ijse.dao.MachineDaoImpl;
 
 
 import java.sql.SQLException;

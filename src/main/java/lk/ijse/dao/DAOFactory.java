@@ -1,7 +1,7 @@
 package lk.ijse.dao;
 
-import lk.ijse.bo.CustomerBOImpl;
-import lk.ijse.bo.SuperBO;
+import lk.ijse.dao.custom.Impl.*;
+import lk.ijse.dao.custom.OrderDao;
 
 public class DAOFactory {
 
@@ -18,7 +18,7 @@ public class DAOFactory {
     }
 
     public enum DAOTypes {
-        CUSTOMER, EMPLOYEE, SUPPLIER, MACHINE, STOCK, ENGINNER
+        CUSTOMER, EMPLOYEE, SUPPLIER, MACHINE, STOCK,  ORDER, ORDERDETAIL, ENGINNER
     }
 
     public SuperDao getDAO(DAOTypes daoTypes) {
@@ -35,6 +35,12 @@ public class DAOFactory {
                 return new MachineDaoImpl();
             case STOCK:
                 return new StockDaoImpl();
+            case ORDER:
+                return new OrderDAOImpl();
+
+            case ORDERDETAIL:
+                return new OrderDetailDaoImpl() {
+                };
             default:
                 return null;
         }

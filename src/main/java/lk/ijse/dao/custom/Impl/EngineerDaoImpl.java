@@ -1,5 +1,7 @@
-package lk.ijse.dao;
+package lk.ijse.dao.custom.Impl;
 
+import lk.ijse.dao.EngineerDao;
+import lk.ijse.dao.SQLUtil;
 import lk.ijse.db.DbConnection;
 import lk.ijse.dto.EngineerDTO;
 import lk.ijse.entity.Customer;
@@ -12,7 +14,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class EngineerDaoImpl  implements EngineerDao{
+public class EngineerDaoImpl  implements EngineerDao {
 
 
 

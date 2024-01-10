@@ -1,6 +1,7 @@
 package lk.ijse.dao;
 
 import javafx.scene.control.Alert;
+import lk.ijse.dao.custom.Impl.MachineDaoImpl;
 import lk.ijse.db.DbConnection;
 import lk.ijse.dto.MachineInstallDto;
 
