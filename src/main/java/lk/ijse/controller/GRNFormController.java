@@ -10,9 +10,7 @@ import javafx.scene.Cursor;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
-import lk.ijse.bo.BOFactory;
-import lk.ijse.bo.StockBO;
-import lk.ijse.bo.SupplierBO;
+import lk.ijse.bo.*;
 import lk.ijse.dto.*;
 import lk.ijse.dto.tm.GrnTM;
 import lk.ijse.dao.*;
@@ -52,13 +50,12 @@ public class GRNFormController {
 
     private ObservableList<GrnTM> oblist = FXCollections.observableArrayList();
 
-    SupplierBO supplierBO = (SupplierBO) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.SUPPLIER);
 
 
 
-    private GRNModel GRNModel = new GRNModel();
 
-  StockBO stockBO = (StockBO) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.STOCK);
+
+PlaceGRNBO placeGRNBO = (PlaceGRNBO) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.PLACEGRN);
 
 
 
@@ -75,7 +72,7 @@ public class GRNFormController {
     private void loadAllProducts() throws SQLException, ClassNotFoundException {
         ObservableList<String> obList = FXCollections.observableArrayList();
 
-        List<StockDto> idList = stockBO.getAllStock();
+        List<StockDto> idList = placeGRNBO.getAllStock();
 
         for (StockDto dto : idList) {
             obList.add(dto.getId());
@@ -90,11 +87,7 @@ public class GRNFormController {
         ObservableList<String> obList = FXCollections.observableArrayList();
 
         List<supDto> idList = null;
-        try {
-            idList = supplierBO.getAllSuppliers();
-        } catch (ClassNotFoundException e) {
-            new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
-        }
+        idList = placeGRNBO.getAllSuppliers();
 
         for (supDto dto : idList) {
             obList.add(dto.getId());
@@ -106,12 +99,15 @@ public class GRNFormController {
     }
 
     private void generateNextGRId() {
+        String grnId = null;
         try {
-            String grnId = GRNModel.generateNextGRId();
-            txtId.setText(grnId);
+            grnId = placeGRNBO.generateNextGRId();
         } catch (SQLException e) {
             new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
+        } catch (ClassNotFoundException e) {
+            new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
         }
+        txtId.setText(grnId);
     }
 
 
@@ -299,15 +295,15 @@ public class GRNFormController {
 
         System.out.println("GRN form controller: " + grnTMList);
         var placeGRNdto= new PlaceGRNdto(grnId,date,supplierId,supplierName,total,grnTMList);
+        boolean isSuccess = false;
         try {
-            boolean isSuccess = PlaceGRNModel.placeGrnOrder(placeGRNdto);
-            if (isSuccess) {
-                new Alert(Alert.AlertType.CONFIRMATION, "Good Recieve Note Success!").show();
-            }
+            isSuccess = placeGRNBO.placeGrnOrder(placeGRNdto);
         } catch (SQLException e) {
             new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
         }
-
+        if (isSuccess) {
+            new Alert(Alert.AlertType.CONFIRMATION, "Good Recieve Note Success!").show();
+        }
 
 
     }

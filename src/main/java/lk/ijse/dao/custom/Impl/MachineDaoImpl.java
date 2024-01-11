@@ -23,81 +23,27 @@ public class MachineDaoImpl implements MachineDao {
     }
 
 
-    public static boolean updateQty2(List<MrnTM> machineGrnTMS) {
-
-        return false;
-    }
-
-   /* public static boolean saveMachine(MachineDto dto) throws SQLException {
-
-        Connection connection = DbConnection.getInstance().getConnection();
-
-        String sql ="INSERT INTO machine VALUES (?,?,?,?)";
-        PreparedStatement pstm = connection.prepareStatement(sql);
-
-        pstm.setString(1,dto.getId());
-        pstm.setString(2, dto.getName());
-        pstm.setString(3, String.valueOf(dto.getQty()));
-        pstm.setString(4, String.valueOf(dto.getPrice()));
-
-        return pstm.executeUpdate() > 0;
-    }
-
-    public static List<MachineDto> getAllMachines() throws SQLException {
-        Connection connection = DbConnection.getInstance().getConnection();
-        String sql = "SELECT * FROM machine";
-        PreparedStatement ps = connection.prepareStatement(sql);
-        List<MachineDto> allMachines = new ArrayList<>();
-        ResultSet resultSet = ps.executeQuery();
-        while (resultSet.next()) {
-            allMachines.add(new MachineDto(
-                    resultSet.getString(1),
-                    resultSet.getString(2),
-                    resultSet.getInt(3),
-                    resultSet.getDouble(4)
-
-            ));
-        }
-        return allMachines;
-    }
-
-    public static boolean deleteMachine(String id) throws SQLException {
-        Connection connection = DbConnection.getInstance().getConnection();
-
-        String sql = "DELETE FROM stock WHERE m_id = ?";
-        PreparedStatement pstm = connection.prepareStatement(sql);
-
-        pstm.setString(1, id);
-
-        return pstm.executeUpdate() > 0;
-    }
-
-    public static  MachineDto searchMachine(String id) throws SQLException {
-
-            Connection connection = DbConnection.getInstance().getConnection();
-
-            String sql = "SELECT * FROM machine WHERE m_id = ?";
-
-            PreparedStatement pstm = connection.prepareStatement(sql);
-            pstm.setString(1, id);
-            ResultSet resultSet = pstm.executeQuery();
-
-            MachineDto dto = null;
-            if (resultSet.next()) {
-                String m_id = resultSet.getString(1);
-                String m_name = resultSet.getString(2);
-                Integer qty = Integer.valueOf(String.valueOf(resultSet.getInt(3)));
-                Double unitPrice = Double.valueOf(String.valueOf(resultSet.getDouble(4)));
-
-
-
-
-                dto = new MachineDto(m_id, m_name, qty, unitPrice);
+    public  boolean updateQty2(List<MrnTM> list) throws SQLException {
+        for (MrnTM ob : list) {
+            if (!updateQty2(ob)){
+                return false;
             }
-            return dto;
+        }
+        return true;
     }
 
+    public boolean updateQty2(MrnTM ob) throws SQLException {
+        /*Connection connection = DbConnection.getInstance().getConnection();
+        String sql = "UPDATE machine SET qty_ = qty_ + ? WHERE m_id = ?";
+        PreparedStatement pstm = connection.prepareStatement(sql);
+        pstm.setInt(1, ob.getQty());
+        pstm.setString(2, ob.getMachineId());
+        return pstm.executeUpdate() > 0;*/
 
+        return SQLUtil.execute("UPDATE machine SET qty_ = qty_ + ? WHERE m_id = ?",ob.getQty(),ob.getMachineId());
+    }
+
+   /*
 
 
     public static boolean updateMachineQty(MachineInstallDto ob) throws SQLException {

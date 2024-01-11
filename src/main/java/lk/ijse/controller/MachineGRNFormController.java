@@ -17,7 +17,7 @@ import lk.ijse.dto.MachineDto;
 import lk.ijse.dto.PlaceMrnDto;
 import lk.ijse.dto.supDto;
 import lk.ijse.dto.tm.MrnTM;
-import lk.ijse.dao.PlaceMRNModel;
+import lk.ijse.bo.PlaceMRNBoImpl;
 import lk.ijse.entity.Machine;
 import lk.ijse.util.Regex;
 import lk.ijse.util.TextFields;
@@ -52,9 +52,8 @@ public class MachineGRNFormController {
     public JFXTextField txtUnitPrice;
     public JFXTextField txtSupplier;
 
-    SupplierBO supplierBO = (SupplierBO) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.SUPPLIER);
 
-    MachineBo machineBo = (MachineBo) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.MACHINE);
+    PlaceMRNBoImpl placeMRNBo = (PlaceMRNBoImpl) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.PLACE_MRN);
 
 
     private ObservableList<MrnTM> oblist = FXCollections.observableArrayList();
@@ -69,14 +68,15 @@ public class MachineGRNFormController {
     }
 
     private void generateNextMRId() {
+        String mrnId = null;
         try {
-            String mrnId = machineBo.nextMachineId();
-            txtId.setText(mrnId);
+            mrnId = placeMRNBo.nextMachineId();
         } catch (SQLException e) {
             new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
         } catch (ClassNotFoundException e) {
             new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
         }
+        txtId.setText(mrnId);
     }
     private void setDate() {
         LocalDate now = LocalDate.now();
@@ -98,11 +98,7 @@ public class MachineGRNFormController {
         ObservableList<String> obList = FXCollections.observableArrayList();
 
         List<supDto> idList = null;
-        try {
-            idList = supplierBO.getAllSuppliers();
-        } catch (ClassNotFoundException e) {
-            throw new RuntimeException(e);
-        }
+        idList = placeMRNBo.getAllSuppliers();
 
         for (supDto dto : idList) {
             obList.add(dto.getId());
@@ -117,11 +113,7 @@ public class MachineGRNFormController {
         ObservableList<String> obList = FXCollections.observableArrayList();
 
         List<MachineDto> idList = null;
-        try {
-            idList = machineBo.getAllMachine();
-        } catch (ClassNotFoundException e) {
-            new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
-        }
+        idList = placeMRNBo.getAllMachine();
 
         for (MachineDto dto : idList) {
             obList.add(dto.getId());
@@ -148,15 +140,15 @@ public class MachineGRNFormController {
     public void cmbMachineOnAction(ActionEvent actionEvent) {
         String id = (String) cmbMachine.getValue();
 //        CustomerModel customerModel = new CustomerModel();
+        Machine machine = null;
         try {
-           Machine machine = machineBo.searchMachine(id);
-            txtName.setText(machine.getName());
-
+            machine = placeMRNBo.searchMachine(id);
         } catch (SQLException e) {
             new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
         } catch (ClassNotFoundException e) {
             new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
         }
+        txtName.setText(machine.getName());
 
     }
 
@@ -265,7 +257,7 @@ public class MachineGRNFormController {
 
         System.out.println("Place order form controller: " + machineTmList);
         var placeMrnDto = new PlaceMrnDto(mrnId, date, supplierId, supplierName, total, machineTmList);
-        boolean isSuccess = PlaceMRNModel.placeMRNOrder(placeMrnDto);
+        boolean isSuccess = placeMRNBo.placeMRNOrder(placeMrnDto);
         if (isSuccess) {
             new Alert(Alert.AlertType.CONFIRMATION, "Machine Recieve Success!").show();
         }

@@ -12,10 +12,11 @@ import javafx.scene.input.KeyEvent;
 import javafx.util.StringConverter;
 import lk.ijse.bo.BOFactory;
 import lk.ijse.bo.EngineerBO;
+import lk.ijse.bo.PlaceEngineerStockBO;
 import lk.ijse.bo.StockBO;
+import lk.ijse.dao.custom.Impl.EngineerStockDaoImpl;
 import lk.ijse.dto.*;
 import lk.ijse.dto.tm.CartTM;
-import lk.ijse.dao.*;
 import lk.ijse.util.Regex;
 import lk.ijse.util.TextFields;
 
@@ -43,9 +44,7 @@ public class ESINFormController {
     public TableColumn<CartTM,Double> colTotal;
     public TableColumn<CartTM, Button> colAction;
 
-    EngineerBO engineerBO = (EngineerBO) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.ENGINNER);
-
-    StockBO stockBO = (StockBO) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.STOCK);
+    PlaceEngineerStockBO placeEngineerStockBO = (PlaceEngineerStockBO) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.PLACE_ENGINEER_STOCK);
 
 
     public void initialize(){
@@ -80,25 +79,41 @@ public class ESINFormController {
 
     }
     public void setNewId(){
-        String s = ESINModel.generateNewId();
+        String s = null;
+        try {
+            s = placeEngineerStockBO.generateNewId();
+        } catch (SQLException e) {
+            new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
+        } catch (ClassNotFoundException e) {
+            new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
+
+        }
         txtId.setText(s);
     }
 
     public void setComboBox(){
+        List<EngineerDTO> list = null;
         try {
-            List<EngineerDTO> list = engineerBO.getAllEngineers();
-            ObservableList<EngineerDTO> n_list = FXCollections.observableArrayList(list);
+            list = placeEngineerStockBO.getAllEngineers();
+        } catch (SQLException e) {
+            new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
 
-            cmbEngineer.setItems(n_list);
-
-
-            List<StockDto> allStocks =stockBO.getAllStock();
-            ObservableList<StockDto> n_list1 = FXCollections.observableArrayList(allStocks);
-            cmbProduct.setItems(n_list1);
-
-        } catch (SQLException | ClassNotFoundException e) {
-            e.printStackTrace();
         }
+        ObservableList<EngineerDTO> n_list = FXCollections.observableArrayList(list);
+
+        cmbEngineer.setItems(n_list);
+
+
+        List<StockDto> allStocks = null;
+        try {
+            allStocks = placeEngineerStockBO.getAllStock();
+        } catch (SQLException e) {
+            new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
+
+        }
+        ObservableList<StockDto> n_list1 = FXCollections.observableArrayList(allStocks);
+        cmbProduct.setItems(n_list1);
+
     }
 
 
@@ -203,7 +218,7 @@ public class ESINFormController {
             engineerStockDto.setEmpId(cmbEngineer.getSelectionModel().getSelectedItem().getEId());
             engineerStockDto.setDetailsList(list);
 
-            boolean isIssued = EngineerStockModel.issueStock(engineerStockDto);
+            boolean isIssued = placeEngineerStockBO.issueStock(engineerStockDto);
             if (isIssued){
                 new Alert(Alert.AlertType.INFORMATION, "Issue Success").show();;
                 clearALl();

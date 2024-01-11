@@ -67,7 +67,7 @@ public class PlaceOrderFormController {
         setCellValueFactory();
         generateNextOrderId();
         setDate();
-        //loadCustomerIds();
+        loadCustomerIds();
         loadMachineIds();
         loadEngineerIds();
         loadItemCodes();
@@ -99,7 +99,7 @@ public class PlaceOrderFormController {
         ObservableList<String> obList = FXCollections.observableArrayList();
 
         List<MachineDto> idList = null;
-        placeOrderBO.getAllMachine();
+       idList= placeOrderBO.getAllMachine();
 
         for (MachineDto dto : idList) {
             obList.add(dto.getId());

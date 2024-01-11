@@ -1,22 +1,15 @@
-package lk.ijse.dto;
+package lk.ijse.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
-
-public class EngineerTeamStockDto {
-    private  String e_id;
-    private  String  ESIN_NO;
+@NoArgsConstructor
+public class EngineerStockDetails {
+    private String esinId;
     private String stockId;
-
-    private String stock_name;
     private int qty;
-
     private double total;
-
-
 }
