@@ -154,8 +154,7 @@ public class CustomerDaoImpl implements CustomerDao {
 
     @Override
     public boolean exsit(String id) throws SQLException, ClassNotFoundException {
-        ResultSet set = SQLUtil.execute("SELECT id FROM customer WHERE id=?",
-                id);
+        ResultSet set = SQLUtil.execute("SELECT id FROM customer WHERE id=?", id);
         return set.next();
     }
 
@@ -173,8 +172,8 @@ public class CustomerDaoImpl implements CustomerDao {
 
 
     @Override
-    public Customer search(String newValue) throws SQLException, ClassNotFoundException {
-        ResultSet rst = SQLUtil.execute("SELECT * FROM customer WHERE id = ?");
+    public Customer search(String id) throws SQLException, ClassNotFoundException {
+        ResultSet rst = SQLUtil.execute("SELECT * FROM customer WHERE id = ?",id);
 
 
         Customer entity = null;

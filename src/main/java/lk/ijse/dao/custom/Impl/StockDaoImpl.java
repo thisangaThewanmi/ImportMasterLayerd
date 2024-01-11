@@ -70,13 +70,13 @@ public class StockDaoImpl implements StockDao {
     }
 
     @Override
-    public Stock search(String newValue) throws SQLException, ClassNotFoundException {
-        ResultSet rst = SQLUtil.execute("SELECT * FROM machine WHERE m_id = ?");
+    public Stock search(String id) throws SQLException, ClassNotFoundException {
+        ResultSet rst = SQLUtil.execute("SELECT * FROM stock WHERE s_id = ?",id);
 
 
        Stock entity = null;
         while (rst.next()) {
-            entity = new Stock(rst.getString("id"), rst.getString("name"), rst.getInt("qty_"),rst.getDouble("unit_price"));
+            entity = new Stock(rst.getString("s_id"), rst.getString("name"), rst.getInt("qty"),rst.getDouble("unit_price"));
 
         }
 
@@ -85,7 +85,7 @@ public class StockDaoImpl implements StockDao {
 
     @Override
     public char[] count() throws SQLException {
-        return SQLUtil.execute("SELECT COUNT(m_id) FROM machine;");
+        return SQLUtil.execute("SELECT COUNT(s_id) FROM stock;");
 
     }
 

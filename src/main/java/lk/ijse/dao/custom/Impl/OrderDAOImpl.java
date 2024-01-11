@@ -101,13 +101,13 @@ public class OrderDAOImpl implements OrderDao {
 
     @Override
     public String nextId() throws SQLException, ClassNotFoundException {
-        ResultSet rst = SQLUtil.execute("SELECT id FROM orders ORDER BY id DESC LIMIT 1;");
+        ResultSet rst = SQLUtil.execute("SELECT orderId FROM orders ORDER BY orderId DESC LIMIT 1;");
         if (rst.next()) {
-            String id = rst.getString("id");
-            int newCustomerId = Integer.parseInt(id.replace("C00-", "")) + 1;
-            return String.format("C00-%03d", newCustomerId);
+            String id = rst.getString("orderId");
+            int newCustomerId = Integer.parseInt(id.replace("O00-", "")) + 1;
+            return String.format("O00-%03d", newCustomerId);
         } else {
-            return "C00-001";
+            return "O00-001";
         }
     }
 
@@ -124,7 +124,7 @@ public class OrderDAOImpl implements OrderDao {
     @Override
     public boolean save(String orderId, String MachineId, String engineerId, LocalDate orderDate, String customerId) throws SQLException, ClassNotFoundException {
 
-        return SQLUtil.execute("INSERT INTO `Orders` (orderId, machineId, engineerId,date, customerID) VALUES (?,?,?)",
+        return SQLUtil.execute("INSERT INTO orders (orderId, machineId, engineerId,date, customerId) VALUES (?,?,?,?,?)",
                 orderId, MachineId, engineerId, orderDate, customerId);
     }
 }

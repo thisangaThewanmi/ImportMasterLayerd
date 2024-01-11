@@ -18,8 +18,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MachineDaoImpl implements MachineDao {
-    public static boolean updateMachineQty(MachineInstallDto machineInstallDto) {
-        return false;
+    public boolean updateMachineQty(MachineInstallDto ob) throws SQLException {
+        /*Connection connection = DbConnection.getInstance().getConnection();
+        String sql = "UPDATE machine SET qty_ = qty_ - 1 WHERE m_id = ?";
+        PreparedStatement pstm = connection.prepareStatement(sql);
+        pstm.setString(1, ob.getMachineId());
+        return pstm.executeUpdate() > 0;*/
+
+        return SQLUtil.execute("UPDATE machine SET qty_ = qty_ - 1 WHERE m_id = ?",ob.getMachineId());
     }
 
 
@@ -187,13 +193,13 @@ public class MachineDaoImpl implements MachineDao {
     }
 
     @Override
-    public Machine search(String newValue) throws SQLException, ClassNotFoundException {
-        ResultSet rst = SQLUtil.execute("SELECT * FROM machine WHERE m_id = ?");
+    public Machine search(String id) throws SQLException, ClassNotFoundException {
+        ResultSet rst = SQLUtil.execute("SELECT * FROM machine WHERE m_id = ?",id);
 
 
         Machine entity = null;
         while (rst.next()) {
-            entity = new Machine(rst.getString("id"), rst.getString("name"), rst.getInt("qty_"),rst.getDouble("unit_price"));
+            entity = new Machine(rst.getString("m_id"), rst.getString("name"), rst.getInt("qty_"),rst.getDouble("unit_price"));
 
         }
 

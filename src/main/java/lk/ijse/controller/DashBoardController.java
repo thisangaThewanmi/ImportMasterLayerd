@@ -58,22 +58,22 @@ public class DashBoardController {
         lblOrders.setText(String.valueOf(placeOrderBO.countOrders()));
     }
 
-  /*  private void setDataStock() throws SQLException {
+   private void setDataStock() throws SQLException {
         lblStock.setText(String.valueOf(stockBO.countStock()));
-    }*/
+    }
 
-    /*private void setDataMachiens() throws SQLException {
-        lblMachines.setText(String.valueOf(machineModel.countMachines()));
+    private void setDataMachiens() throws SQLException {
+        lblMachines.setText(String.valueOf(machineBO.countMachine()));
     }
 
     private void setDataCustomers() throws SQLException {
 
-        lblCustomer.setText(String.valueOf(customerModel.countCustomers()));
+        lblCustomer.setText(String.valueOf(customerBO.countCustomer()));
     }
 
     private void setDataSuppliers() throws SQLException {
-        lblSuppliers.setText(String.valueOf(supModel.countSuppliers()));
-    }*/
+        lblSuppliers.setText(String.valueOf(supplierBO.countSupplier()));
+    }
 
    /* private void setTimeDashboard(){
 

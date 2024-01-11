@@ -19,4 +19,5 @@ public interface MachineBo extends SuperBO{
 
     Machine searchMachine(String id) throws SQLException, ClassNotFoundException;
 
+
 }

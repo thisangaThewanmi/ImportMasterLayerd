@@ -323,15 +323,16 @@ public class PlaceOrderFormController {
     public void cmbCustomerOnAction(ActionEvent actionEvent) {
         String id = (String) cmbCustomer.getValue();
 //        CustomerModel customerModel = new CustomerModel();
-        Customer customer = null;
+
         try {
-            customer = placeOrderBO.searchCustomer(id);
+          Customer  customer = placeOrderBO.searchCustomer(id);
+            txtCustomerName.setText(customer.getName());
         } catch (SQLException e) {
             new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
         } catch (ClassNotFoundException e) {
             new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
         }
-        txtCustomerName.setText(customer.getName());
+
 
     }
 }

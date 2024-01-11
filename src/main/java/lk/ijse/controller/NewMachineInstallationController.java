@@ -8,12 +8,11 @@ import javafx.event.ActionEvent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 
-import lk.ijse.bo.BOFactory;
-import lk.ijse.bo.CustomerBO;
-import lk.ijse.bo.EngineerBO;
-import lk.ijse.bo.MachineBo;
+import lk.ijse.bo.*;
 import lk.ijse.dto.*;
 import lk.ijse.dao.*;
+import lk.ijse.entity.Customer;
+import lk.ijse.entity.Engineer;
 import lk.ijse.entity.Machine;
 
 import java.sql.SQLException;
@@ -36,11 +35,7 @@ public class NewMachineInstallationController {
     public JFXTextField txtPrice;
 
 
-    MachineBo machineBo = (MachineBo) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.MACHINE);
-
-    EngineerBO engineerBO = (EngineerBO) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.ENGINNER);
-  CustomerBO customerBO = (CustomerBO) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.CUSTOMER);
-
+    PlaceMachineInstallationBO placeMachineInstallationBO = (PlaceMachineInstallationBO) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.PLACE_MACHINE_INSTALLATION);
 
 
     public void initialize() throws SQLException {
@@ -67,98 +62,99 @@ public class NewMachineInstallationController {
 
 
         var machineInstallDto = new MachineInstallDto(MIid,date, machineId, machineName, customerId, customerName, engineerId, engineerName, price);
-        boolean isSuccess = PlaceMachineInstallionModel.placeInstallation(machineInstallDto);
+        boolean isSuccess = placeMachineInstallationBO.placeInstallation(machineInstallDto);
 
 
     }
 
     public void cmbMahineOnAction(ActionEvent actionEvent) {
         String id = (String) cmbMachine.getValue();
-//        CustomerModel customerModel = new CustomerModel();
-        try {
-            Machine machine = machineBo.searchMachine(id);
-            lblMachineName.setText(machine.getName());
 
+        Machine machine = null;
+        try {
+            machine = placeMachineInstallationBO.searchMachine(id);
         } catch (SQLException e) {
             new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
         } catch (ClassNotFoundException e) {
             new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
         }
+
+        lblMachineName.setText(machine.getName());
+
     }
 
-   /* public void cmbCustomerOnAction(ActionEvent actionEvent) {
+    public void cmbCustomerOnAction(ActionEvent actionEvent) {
         String id = (String) cmbCustomer.getValue();
 //        CustomerModel customerModel = new CustomerModel();
+        Customer customer = null;
         try {
-            CustomerDto customerDto = CustomerDaoImpl.searchCustomer(id);
-            lblCustomerName.setText(customerDto.getName());
-
+            customer = placeMachineInstallationBO.searchCustomer(id);
         } catch (SQLException e) {
+            new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
+        } catch (ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
-    }*/
+        lblCustomerName.setText(customer.getName());
+
+    }
 
 
-   /* public void cmbEngOnAction(ActionEvent actionEvent) {
+  public void cmbEngOnAction(ActionEvent actionEvent) {
         String id = (String) cmbEngineer.getValue();
 //        CustomerModel customerModel = new CustomerModel();
-        try {
-            EngineerDTO engineerDto = engineerBO.searchEngineer(id);
+      Engineer engineer = null;
+      try {
+          engineer = placeMachineInstallationBO.searchEngineer(id);
+      } catch (SQLException e) {
+          new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
+      } catch (ClassNotFoundException e) {
+          new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
+      }
 
-            lblEngName.setText(engineerDto.getName());
+      lblEngName.setText(engineer.getName());
 
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-    }
-*/
+  }
+
     private void loadCustomerIds() {
         ObservableList<String> obList = FXCollections.observableArrayList();
 
+        List<CustomerDto> idList = null;
         try {
-            List<CustomerDto> idList = customerBO.getAllCustomers();
-
-            for (CustomerDto dto : idList) {
-                obList.add(dto.getId());
-            }
-
-            cmbCustomer.setItems(obList);
+            idList = placeMachineInstallationBO.getAllCustomers();
         } catch (SQLException e) {
-            new Alert(Alert.AlertType.ERROR,e.getMessage()).show();
-        } catch (ClassNotFoundException e) {
-            new Alert(Alert.AlertType.ERROR,e.getMessage()).show();
-
+            new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
         }
+
+        for (CustomerDto dto : idList) {
+            obList.add(dto.getId());
+        }
+
+        cmbCustomer.setItems(obList);
     }
 
 
     private void loadMachieneIds() {
         ObservableList<String> obList = FXCollections.observableArrayList();
 
+        List<MachineDto> idList = null;
         try {
-            List<MachineDto> idList =machineBo.getAllMachine();
-
-            for (MachineDto dto : idList) {
-                obList.add(dto.getId());
-            }
-
-            cmbMachine.setItems(obList);
+            idList = placeMachineInstallationBO.getAllMachine();
         } catch (SQLException e) {
-            new Alert(Alert.AlertType.ERROR,e.getMessage()).show();
-        } catch (ClassNotFoundException e) {
-            new Alert(Alert.AlertType.ERROR,e.getMessage()).show();
+            new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
         }
+
+        for (MachineDto dto : idList) {
+            obList.add(dto.getId());
+        }
+
+        cmbMachine.setItems(obList);
     }
 
     private void loadEngineerIds() throws SQLException {
         ObservableList<String> obList = FXCollections.observableArrayList();
 
         List<EngineerDTO> idList = null;
-        try {
-            idList = engineerBO.getAllEngineers();
-        } catch (ClassNotFoundException e) {
-            new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
-        }
+        idList = placeMachineInstallationBO.getAllEngineers();
 
         for (EngineerDTO dto : idList) {
             obList.add(dto.getEId());
@@ -173,7 +169,12 @@ public class NewMachineInstallationController {
     }
 
     private void generateNextMachineInstallationId() throws SQLException {
-        String MachInstId = MachineInstallationModel.generateNextMachineInstallationId();
+        String MachInstId = null;
+        try {
+            MachInstId = placeMachineInstallationBO.generateNextMachineInstallationId();
+        } catch (ClassNotFoundException e) {
+            new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
+        }
         txtOrderId.setText(MachInstId);
     }
 

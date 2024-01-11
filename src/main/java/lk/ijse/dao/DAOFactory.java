@@ -18,7 +18,7 @@ public class DAOFactory {
     }
 
     public enum DAOTypes {
-        CUSTOMER, EMPLOYEE, SUPPLIER, MACHINE, STOCK,  ORDER, ORDERDETAIL, ENGINNERSTOCK, ENGINNER_STOCK_DETAILS, GRN, GRN_DETAIL, MRNDETAILS, MRN, ENGINNER
+        CUSTOMER, EMPLOYEE, SUPPLIER, MACHINE, STOCK,  ORDER, ORDERDETAIL, ENGINNERSTOCK, ENGINNER_STOCK_DETAILS, GRN, GRN_DETAIL, MRNDETAILS, MRN, MACHINE_INSTALLATION, ENGINNER
     }
 
     public SuperDao getDAO(DAOTypes daoTypes) {
@@ -53,6 +53,8 @@ public class DAOFactory {
                         return new MrnDetailDaoImpl();
                         case MRN:
                             return new MrnDaoImpl();
+                            case MACHINE_INSTALLATION:
+                                return new MachineInstallationDaoImpl();
             default:
                 return null;
         }

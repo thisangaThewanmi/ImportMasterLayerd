@@ -7,7 +7,7 @@ import lk.ijse.dto.StockDto;
 import java.sql.SQLException;
 import java.util.List;
 
-public interface PlaceEngineerStockBO {
+public interface PlaceEngineerStockBO  extends SuperBO{
 
     boolean issueStock(EngineerStockDto engineerStockDto) throws SQLException, ClassNotFoundException ;
 

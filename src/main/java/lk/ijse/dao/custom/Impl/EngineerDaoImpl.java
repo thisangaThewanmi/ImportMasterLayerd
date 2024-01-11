@@ -65,13 +65,13 @@ public class EngineerDaoImpl  implements EngineerDao {
     }
 
     @Override
-    public Engineer search(String newValue) throws SQLException, ClassNotFoundException {
-        ResultSet rst = SQLUtil.execute("SELECT * FROM engineer WHERE e_id = ?");
+    public Engineer search(String id) throws SQLException, ClassNotFoundException {
+        ResultSet rst = SQLUtil.execute("SELECT * FROM engineer WHERE e_id = ?",id);
 
 
         Engineer entity = null;
         while (rst.next()) {
-            entity = new Engineer(rst.getString("id"), rst.getString("name"), rst.getString("address"), rst.getString("tel"));
+            entity = new Engineer(rst.getString("e_id"), rst.getString("name"), rst.getString("address"), rst.getString("tel"));
 
         }
 

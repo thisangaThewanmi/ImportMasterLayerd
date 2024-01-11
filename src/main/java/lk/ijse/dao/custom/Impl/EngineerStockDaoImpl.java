@@ -80,9 +80,9 @@ public class EngineerStockDaoImpl implements EngineerStockDao {
 
     @Override
     public String nextId() throws SQLException, ClassNotFoundException {
-        ResultSet rst = SQLUtil.execute("SELECT ESIN_No FROM orders engineerstock ORDER BY id DESC LIMIT 1;");
+        ResultSet rst = SQLUtil.execute("SELECT ESIN_No FROM  engineerstock ORDER BY ESIN_No DESC LIMIT 1;");
         if (rst.next()) {
-            String id = rst.getString("id");
+            String id = rst.getString("ESIN_No");
             int EngStockId = Integer.parseInt(id.replace("E00-", "")) + 1;
             return String.format("E00-%03d", EngStockId);
         } else {
