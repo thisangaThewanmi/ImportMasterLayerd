@@ -61,8 +61,8 @@ public class MachineInstallationDaoImpl implements MachineInstallationDao {
     }
 
     @Override
-    public char[] count() throws SQLException {
-        return new char[0];
+    public ResultSet count() throws SQLException {
+        return SQLUtil.execute("SELECT COUNT(*) AS MI_count FROM machineinstallation;");
     }
 }
 

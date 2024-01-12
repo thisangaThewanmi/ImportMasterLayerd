@@ -6,7 +6,7 @@ import lk.ijse.dto.tm.MrnTM;
 import lk.ijse.entity.MRNDetails;
 
 import java.sql.Connection;
-import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -77,8 +77,8 @@ public class MrnDetailDaoImpl implements MRNDetailsDao {
     }
 
     @Override
-    public char[] count() throws SQLException {
-        return new char[0];
+    public ResultSet count() throws SQLException {
+        return SQLUtil.execute("SELECT COUNT(id) FROM mrn_details;");
     }
 }
 

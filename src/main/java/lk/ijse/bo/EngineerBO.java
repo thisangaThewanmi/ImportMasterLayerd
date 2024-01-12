@@ -1,10 +1,9 @@
 package lk.ijse.bo;
 
-import lk.ijse.dto.EmployeeDto;
 import lk.ijse.dto.EngineerDTO;
-import lk.ijse.entity.Employee;
 import lk.ijse.entity.Engineer;
 
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -19,7 +18,7 @@ public interface EngineerBO extends SuperBO{
     boolean deleteEnginner(String id) throws SQLException, ClassNotFoundException;
     String nextEngineerId() throws SQLException, ClassNotFoundException;
 
-    public char[] countEngineer() throws SQLException;
+    public ResultSet countEngineer() throws SQLException;
 
     Engineer searchEngineer(String id) throws SQLException, ClassNotFoundException;
 }

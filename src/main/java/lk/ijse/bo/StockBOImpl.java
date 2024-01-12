@@ -4,9 +4,9 @@ import lk.ijse.dao.DAOFactory;
 import lk.ijse.dao.StockDao;
 
 import lk.ijse.dto.StockDto;
-import lk.ijse.entity.Employee;
 import lk.ijse.entity.Stock;
 
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -52,7 +52,7 @@ public class StockBOImpl implements StockBO {
     }
 
     @Override
-    public char[] countStock() throws SQLException {
+    public ResultSet countStock() throws SQLException {
         return stockDao.count();
     }
 

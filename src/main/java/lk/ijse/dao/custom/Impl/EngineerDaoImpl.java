@@ -2,17 +2,11 @@ package lk.ijse.dao.custom.Impl;
 
 import lk.ijse.dao.EngineerDao;
 import lk.ijse.dao.SQLUtil;
-import lk.ijse.db.DbConnection;
-import lk.ijse.dto.EngineerDTO;
-import lk.ijse.entity.Customer;
 import lk.ijse.entity.Engineer;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.List;
 
 public class EngineerDaoImpl  implements EngineerDao {
 
@@ -79,7 +73,7 @@ public class EngineerDaoImpl  implements EngineerDao {
     }
 
     @Override
-    public char[] count() throws SQLException {
+    public ResultSet count() throws SQLException {
         return SQLUtil.execute("SELECT COUNT(e_id) FROM engineer;");
     }
 }

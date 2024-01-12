@@ -1,7 +1,6 @@
 package lk.ijse.dao;
 
 import lk.ijse.dao.custom.MRNDao;
-import lk.ijse.db.DbConnection;
 import lk.ijse.entity.MRN;
 
 import java.sql.*;
@@ -62,7 +61,7 @@ public class MrnDaoImpl  implements MRNDao {
     }
 
     @Override
-    public char[] count() throws SQLException {
+    public ResultSet count() throws SQLException {
       return   SQLUtil.execute("SELECT COUNT(*) AS mrn_count FROM mrn;");
     }
 }

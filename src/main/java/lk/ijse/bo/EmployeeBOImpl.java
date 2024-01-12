@@ -5,6 +5,7 @@ import lk.ijse.dao.EmployeeDao;
 import lk.ijse.dto.EmployeeDto;
 import lk.ijse.entity.Employee;
 
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -51,7 +52,7 @@ public class EmployeeBOImpl implements EmployeeBO {
     }
 
     @Override
-    public char[] countEmployee() throws SQLException {
+    public ResultSet countEmployee() throws SQLException {
         return employeeDao.count();
     }
 

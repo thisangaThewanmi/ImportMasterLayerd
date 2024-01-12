@@ -1,9 +1,9 @@
 package lk.ijse.bo;
 
 import lk.ijse.dto.MachineDto;
-import lk.ijse.entity.Employee;
 import lk.ijse.entity.Machine;
 
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -15,7 +15,7 @@ public interface MachineBo extends SuperBO{
     boolean deleteMachine(String id) throws SQLException, ClassNotFoundException;
     String nextMachineId() throws SQLException, ClassNotFoundException;
 
-    public char[] countMachine() throws SQLException;
+    public ResultSet countMachine() throws SQLException;
 
     Machine searchMachine(String id) throws SQLException, ClassNotFoundException;
 

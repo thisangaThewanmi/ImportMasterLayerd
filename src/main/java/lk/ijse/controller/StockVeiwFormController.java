@@ -9,6 +9,7 @@ import lk.ijse.bo.StockBO;
 import lk.ijse.dto.StockDto;
 import lk.ijse.dto.tm.StockTM;
 
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -41,7 +42,8 @@ public class StockVeiwFormController {
     }
 
     private void setDataStock() throws SQLException {
-        lblStock.setText(String.valueOf(stockBO.countStock()));
+        ResultSet resultSet = stockBO.countStock();
+        lblStock.setText(String.valueOf(resultSet));
     }
 
     public void setCellValues(){

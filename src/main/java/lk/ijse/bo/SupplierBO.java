@@ -1,9 +1,9 @@
 package lk.ijse.bo;
 
 import lk.ijse.dto.supDto;
-import lk.ijse.entity.Employee;
 import lk.ijse.entity.Supplier;
 
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -18,7 +18,7 @@ public interface SupplierBO extends SuperBO{
     boolean deleteSupplier(String id) throws SQLException, ClassNotFoundException;
     String nextSupplierId() throws SQLException, ClassNotFoundException;
 
-    public char[] countSupplier() throws SQLException;
+    public ResultSet countSupplier() throws SQLException;
 
    Supplier searchSupplier(String id) throws SQLException, ClassNotFoundException;
 }

@@ -77,8 +77,8 @@ public class EngineerStockDetailsDaoImpl implements EngineerStockDetailsDao {
     }
 
     @Override
-    public char[] count() throws SQLException {
-        return new char[0];
+    public ResultSet count() throws SQLException {
+        return SQLUtil.execute("SELECT COUNT(*) AS grn_count FROM engineer_stock_details;");
     }
 }
 

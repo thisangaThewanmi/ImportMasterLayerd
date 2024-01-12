@@ -2,12 +2,9 @@ package lk.ijse.dao.custom.Impl;
 
 import lk.ijse.dao.SQLUtil;
 import lk.ijse.dao.custom.EngineerStockDao;
-import lk.ijse.db.DbConnection;
 import lk.ijse.dto.EngineerStockDto;
 import lk.ijse.entity.EngineerStock;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -96,7 +93,7 @@ public class EngineerStockDaoImpl implements EngineerStockDao {
     }
 
     @Override
-    public char[] count() throws SQLException {
-        return new char[0];
+    public ResultSet count() throws SQLException {
+        return SQLUtil.execute("SELECT COUNT(*) AS eng_count FROM engineerstock;");
     }
 }

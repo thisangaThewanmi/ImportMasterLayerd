@@ -6,7 +6,6 @@ import lk.ijse.db.DbConnection;
 import lk.ijse.dto.*;
 import lk.ijse.dto.tm.GrnTM;
 import lk.ijse.dto.tm.StockTM;
-import lk.ijse.entity.Machine;
 import lk.ijse.entity.Stock;
 
 import java.sql.Connection;
@@ -84,7 +83,7 @@ public class StockDaoImpl implements StockDao {
     }
 
     @Override
-    public char[] count() throws SQLException {
+    public ResultSet count() throws SQLException {
         return SQLUtil.execute("SELECT COUNT(s_id) FROM stock;");
 
     }

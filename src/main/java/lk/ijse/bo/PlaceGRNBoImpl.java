@@ -3,7 +3,6 @@ package lk.ijse.bo;
 import lk.ijse.dao.*;
 import lk.ijse.dao.custom.GRNDao;
 import lk.ijse.dao.custom.GRNDetailDao;
-import lk.ijse.dao.custom.Impl.StockDaoImpl;
 import lk.ijse.db.DbConnection;
 import lk.ijse.dto.PlaceGRNdto;
 import lk.ijse.dto.StockDto;
@@ -81,6 +80,16 @@ public class PlaceGRNBoImpl implements PlaceGRNBO {
             connection.setAutoCommit(true);
         }
         return true;
+    }
+
+    @Override
+    public Supplier searchSupplier(String id) throws SQLException, ClassNotFoundException {
+       return supplierDao.search(id);
+    }
+
+    @Override
+    public Stock searchStock(String id) throws SQLException, ClassNotFoundException {
+     return   stockDao.search(id);
     }
 
 

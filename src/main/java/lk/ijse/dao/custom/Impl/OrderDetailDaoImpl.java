@@ -2,12 +2,10 @@ package lk.ijse.dao.custom.Impl;
 
 import lk.ijse.dao.SQLUtil;
 import lk.ijse.dao.custom.OrderDetailDao;
-import lk.ijse.db.DbConnection;
 import lk.ijse.dto.tm.StockTM;
 import lk.ijse.entity.OrderDetail;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -75,7 +73,7 @@ public class OrderDetailDaoImpl implements OrderDetailDao {
     }
 
     @Override
-    public char[] count() throws SQLException {
-        return new char[0];
+    public ResultSet count() throws SQLException {
+        return SQLUtil.execute("SELECT COUNT(id) FROM order_detail;");
     }
 }

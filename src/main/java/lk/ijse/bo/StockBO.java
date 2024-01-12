@@ -4,6 +4,7 @@ import lk.ijse.dto.StockDto;
 
 import lk.ijse.entity.Stock;
 
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -16,7 +17,7 @@ public interface StockBO  extends SuperBO{
     boolean deleteStock(String id) throws SQLException, ClassNotFoundException;
     String nextStockId() throws SQLException, ClassNotFoundException;
 
-    public char[] countStock() throws SQLException;
+    public ResultSet countStock() throws SQLException;
 
     Stock searchStock(String id) throws SQLException, ClassNotFoundException;
 

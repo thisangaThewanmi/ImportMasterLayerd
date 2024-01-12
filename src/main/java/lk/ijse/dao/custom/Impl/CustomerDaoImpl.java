@@ -2,16 +2,11 @@ package lk.ijse.dao.custom.Impl;
 
 import lk.ijse.dao.CustomerDao;
 import lk.ijse.dao.SQLUtil;
-import lk.ijse.db.DbConnection;
-import lk.ijse.dto.CustomerDto;
 import lk.ijse.entity.Customer;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.List;
 
 public class CustomerDaoImpl implements CustomerDao {
 
@@ -186,7 +181,7 @@ public class CustomerDaoImpl implements CustomerDao {
     }
 
     @Override
-    public char[] count() throws SQLException {
+    public ResultSet count() throws SQLException {
         return SQLUtil.execute("SELECT COUNT(id) FROM customer;");
     }
 }

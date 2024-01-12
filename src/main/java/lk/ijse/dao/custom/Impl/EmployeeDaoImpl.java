@@ -3,7 +3,6 @@ package lk.ijse.dao.custom.Impl;
 
 import lk.ijse.dao.EmployeeDao;
 import lk.ijse.dao.SQLUtil;
-import lk.ijse.entity.Customer;
 import lk.ijse.entity.Employee;
 
 
@@ -83,7 +82,7 @@ public class EmployeeDaoImpl implements EmployeeDao {
     }
 
     @Override
-    public char[] count() throws SQLException {
+    public ResultSet count() throws SQLException {
         return SQLUtil.execute("SELECT COUNT(emp_id) FROM employee;");
     }
 }

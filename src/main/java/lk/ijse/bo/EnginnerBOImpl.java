@@ -5,6 +5,7 @@ import lk.ijse.dao.EngineerDao;
 import lk.ijse.dto.EngineerDTO;
 import lk.ijse.entity.Engineer;
 
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -53,7 +54,7 @@ public class EnginnerBOImpl implements EngineerBO {
     }
 
     @Override
-    public char[] countEngineer() throws SQLException {
+    public ResultSet countEngineer() throws SQLException {
         return engineerDao.count();
     }
 

@@ -19,6 +19,7 @@ import lk.ijse.dto.supDto;
 import lk.ijse.dto.tm.MrnTM;
 import lk.ijse.bo.PlaceMRNBoImpl;
 import lk.ijse.entity.Machine;
+import lk.ijse.entity.Supplier;
 import lk.ijse.util.Regex;
 import lk.ijse.util.TextFields;
 
@@ -124,18 +125,23 @@ public class MachineGRNFormController {
 
     }
 
-   /* public void cmbSupplierOnAction(ActionEvent actionEvent) throws SQLException {
+    public void cmbSupplierOnAction(ActionEvent actionEvent) throws SQLException {
         String id = (String) cmbSupplier.getValue();
 //        CustomerModel customerModel = new CustomerModel();
         try {
-            supDto supplierDto = supplierBO(id);
-            txtSupplier.setText(supplierDto.getName());
+            Supplier supplier = null;
+            try {
+                supplier = placeMRNBo.searchSupplier(id);
+            } catch (ClassNotFoundException e) {
+                new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
+            }
+            txtSupplier.setText(supplier.getName());
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
 
-    }*/
+    }
 
     public void cmbMachineOnAction(ActionEvent actionEvent) {
         String id = (String) cmbMachine.getValue();

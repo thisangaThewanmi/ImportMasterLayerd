@@ -5,6 +5,7 @@ import lk.ijse.dao.DAOFactory;
 import lk.ijse.dto.CustomerDto;
 import lk.ijse.entity.Customer;
 
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -53,7 +54,7 @@ public class CustomerBOImpl implements CustomerBO{
     }
 
     @Override
-    public char[] countCustomer() throws SQLException {
+    public ResultSet countCustomer() throws SQLException {
         return customerDao.count();
     }
 

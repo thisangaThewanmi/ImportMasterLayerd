@@ -1,7 +1,6 @@
 package lk.ijse.dao;
 
 import lk.ijse.dao.custom.GRNDao;
-import lk.ijse.db.DbConnection;
 import lk.ijse.entity.GRN;
 
 import java.sql.*;
@@ -82,7 +81,7 @@ public class GRNDaoImpl implements GRNDao {
     }
 
     @Override
-    public char[] count() throws SQLException {
+    public ResultSet count() throws SQLException {
         return SQLUtil.execute("SELECT COUNT(*) AS grn_count FROM grn;");
     }
 

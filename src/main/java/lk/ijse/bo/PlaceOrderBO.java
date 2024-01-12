@@ -6,6 +6,7 @@ import lk.ijse.entity.Engineer;
 import lk.ijse.entity.Machine;
 import lk.ijse.entity.Stock;
 
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -33,5 +34,5 @@ public interface PlaceOrderBO  extends SuperBO{
 
      Customer searchCustomer(String id) throws SQLException, ClassNotFoundException;
 
-     char[] countOrders() throws SQLException;
+     ResultSet countOrders() throws SQLException;
 }

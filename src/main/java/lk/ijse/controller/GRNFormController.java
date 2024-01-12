@@ -14,6 +14,8 @@ import lk.ijse.bo.*;
 import lk.ijse.dto.*;
 import lk.ijse.dto.tm.GrnTM;
 import lk.ijse.dao.*;
+import lk.ijse.entity.Stock;
+import lk.ijse.entity.Supplier;
 import lk.ijse.util.Regex;
 import lk.ijse.util.TextFields;
 
@@ -123,34 +125,36 @@ PlaceGRNBO placeGRNBO = (PlaceGRNBO) BOFactory.getBoFactory().getBO(BOFactory.BO
 
     }
 
-    /*public void cmbSupplierOnAction(ActionEvent actionEvent) {
+    public void cmbSupplierOnAction(ActionEvent actionEvent) {
         String id = (String) cmbSupplier.getValue();
 //        CustomerModel customerModel = new CustomerModel();
+        Supplier supplier = null;
         try {
-            supDto supplierDto = supModel.searchSupplier(id);
-            txtSupplier.setText(supplierDto.getName());
-
+            supplier = placeGRNBO.searchSupplier(id);
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
+        } catch (ClassNotFoundException e) {
+            new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
         }
-    }
-*/
+        txtSupplier.setText(supplier.getName());
 
-       /* public void cmdProductOnAction(ActionEvent actionEvent) {
+    }
+
+
+       public void cmdProductOnAction(ActionEvent actionEvent) {
             String id = (String) cmbProduct.getValue();
 //        CustomerModel customerModel = new CustomerModel();
-            try {
-                StockDto stockDto = stockBO.searchStock();
-                txtName.setText(stockDto.getName());
+           Stock stock = null;
+           try {
+               stock = placeGRNBO.searchStock(id);
+           } catch (SQLException e) {
+               new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
+           } catch (ClassNotFoundException e) {
+               new Alert(Alert.AlertType.ERROR, e.getMessage()).show();           }
+           txtName.setText(stock.getName());
 
 
-
-            } catch (SQLException e) {
-                throw new RuntimeException(e);
-            }
-
-
-    }*/
+       }
 
     public void txtQtyOnKeyReleaseAction(KeyEvent keyEvent) {
         Regex.setTextColor(TextFields.INTEGER, txtQty);

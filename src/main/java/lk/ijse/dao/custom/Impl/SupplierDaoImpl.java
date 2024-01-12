@@ -2,17 +2,11 @@ package lk.ijse.dao.custom.Impl;
 
 import lk.ijse.dao.SQLUtil;
 import lk.ijse.dao.SupplierDao;
-import lk.ijse.db.DbConnection;
-import lk.ijse.dto.supDto;
-import lk.ijse.entity.Employee;
 import lk.ijse.entity.Supplier;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.List;
 
 public class SupplierDaoImpl implements SupplierDao {
 
@@ -196,9 +190,8 @@ public class SupplierDaoImpl implements SupplierDao {
     }
 
     @Override
-    public char[] count() throws SQLException {
-        return SQLUtil.execute("SELECT COUNT(m_id) FROM machine;");
-
+    public ResultSet count() throws SQLException {
+        return SQLUtil.execute("SELECT COUNT(*) AS sup_count FROM supplier;");
     }
 }
 

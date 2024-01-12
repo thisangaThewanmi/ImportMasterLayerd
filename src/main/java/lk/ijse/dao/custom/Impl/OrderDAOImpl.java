@@ -117,7 +117,7 @@ public class OrderDAOImpl implements OrderDao {
     }
 
     @Override
-    public char[] count() throws SQLException {
+    public ResultSet count() throws SQLException {
         return SQLUtil.execute("SELECT COUNT(*) AS order_count FROM orders;");
     }
 

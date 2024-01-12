@@ -4,6 +4,7 @@ import lk.ijse.dao.custom.GRNDetailDao;
 import lk.ijse.dto.tm.GrnTM;
 import lk.ijse.entity.GRNDetails;
 
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -58,8 +59,8 @@ public class GRNDetailDaoImpl implements GRNDetailDao {
     }
 
     @Override
-    public char[] count() throws SQLException {
-        return new char[0];
+    public ResultSet count() throws SQLException {
+        return  SQLUtil.execute("SELECT COUNT(*) AS grn_count FROM grn;");
     }
 }
 

@@ -2,7 +2,6 @@ package lk.ijse.bo;
 
 import javafx.scene.control.Alert;
 import lk.ijse.dao.*;
-import lk.ijse.dao.custom.Impl.OrderDetailDaoImpl;
 import lk.ijse.dao.custom.OrderDao;
 import lk.ijse.dao.custom.OrderDetailDao;
 import lk.ijse.db.DbConnection;
@@ -13,6 +12,7 @@ import lk.ijse.entity.Machine;
 import lk.ijse.entity.Stock;
 
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -151,7 +151,7 @@ public class PlaceOrderBoImpl implements PlaceOrderBO {
     }
 
     @Override
-    public char[] countOrders() throws SQLException {
+    public ResultSet countOrders() throws SQLException {
         return orderDao.count();
     }
 

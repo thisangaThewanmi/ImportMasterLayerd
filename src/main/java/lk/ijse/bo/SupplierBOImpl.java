@@ -2,12 +2,10 @@ package lk.ijse.bo;
 
 import lk.ijse.dao.DAOFactory;
 import lk.ijse.dao.SupplierDao;
-import lk.ijse.dto.EngineerDTO;
 import lk.ijse.dto.supDto;
-import lk.ijse.entity.Employee;
-import lk.ijse.entity.Engineer;
 import lk.ijse.entity.Supplier;
 
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -53,7 +51,7 @@ public class SupplierBOImpl implements SupplierBO {
     }
 
     @Override
-    public char[] countSupplier() throws SQLException {
+    public ResultSet countSupplier() throws SQLException {
         return supplierDao.count();
     }
 

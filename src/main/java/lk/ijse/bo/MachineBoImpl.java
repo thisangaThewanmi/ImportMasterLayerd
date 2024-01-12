@@ -3,12 +3,10 @@ package lk.ijse.bo;
 import lk.ijse.dao.DAOFactory;
 import lk.ijse.dao.MachineDao;
 
-import lk.ijse.dto.CustomerDto;
 import lk.ijse.dto.MachineDto;
-import lk.ijse.entity.Customer;
-import lk.ijse.entity.Employee;
 import lk.ijse.entity.Machine;
 
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -54,7 +52,7 @@ public class MachineBoImpl implements MachineBo {
     }
 
     @Override
-    public char[] countMachine() throws SQLException {
+    public ResultSet countMachine() throws SQLException {
         return machineDao.count();
     }
 

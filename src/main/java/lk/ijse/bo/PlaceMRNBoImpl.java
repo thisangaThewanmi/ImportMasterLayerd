@@ -1,8 +1,6 @@
 package lk.ijse.bo;
 
-import javafx.scene.control.Alert;
 import lk.ijse.dao.*;
-import lk.ijse.dao.custom.Impl.MachineDaoImpl;
 import lk.ijse.dao.custom.MRNDao;
 import lk.ijse.dao.custom.MRNDetailsDao;
 import lk.ijse.db.DbConnection;
@@ -14,7 +12,6 @@ import lk.ijse.entity.Supplier;
 
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -93,6 +90,10 @@ public class PlaceMRNBoImpl implements PlaceMrnBO {
 
     public Machine searchMachine(String id) throws SQLException, ClassNotFoundException {
         return machineDao.search(id);
+    }
+
+    public Supplier searchSupplier(String id) throws SQLException, ClassNotFoundException {
+        return supplierDao.search(id);
     }
 }
 

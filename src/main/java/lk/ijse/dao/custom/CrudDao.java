@@ -3,9 +3,9 @@ package lk.ijse.dao.custom;
 
 import lk.ijse.dao.SuperDao;
 
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.List;
 
 public interface CrudDao<T> extends SuperDao {
 
@@ -24,7 +24,7 @@ public interface CrudDao<T> extends SuperDao {
 
     T search(String id) throws SQLException, ClassNotFoundException;
 
-     char[] count() throws SQLException;
+     ResultSet count() throws SQLException;
 
 
 
